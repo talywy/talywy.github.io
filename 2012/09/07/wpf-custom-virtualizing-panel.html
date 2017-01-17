@@ -1,187 +1,4 @@
-
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
-    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="author" content="Yu Wang">
-    <meta name="description" content="Personal blog for YuWang, a software engineer based in HeiFei,AnHui,China." />
-    <meta name="keywords" content="yuwang,WPF" />
-    
-
-    <title>WPF中实现自定义虚拟容器(实现VirtualizingPanel) - YuWang</title>
-
-    <link href='/assets/css/blog-style.css' rel="stylesheet" type="text/css">
-    <link href="/rss.xml" rel="alternate" title="YuWang" type="application/rss+xml">
-
-    <!--[if IE]>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
-        <script>window.Modernizr || document.write('<script src="/assets/js/modernizr-2.0.6.min.js"><\/script>')</script>
-    <![endif]-->
-    <!--[if !IE]> -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-        <script>window.Modernizr || document.write('<script src="/assets/js/modernizr-2.6.2.min.js"><\/script>')</script>
-    <!-- <![endif]-->
-    
-
-    <script>
-        if (!navigator.userAgent.match(/.*(Pingdom|PhantomJS|StatusCake).*/gi)) {
-            
-                    var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?1096ce63809d64d11df8da9b7c7d3ca9";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-            
-        }
-        (function(f,b,g){
-    var xo=g.prototype.open,xs=g.prototype.send,c;
-    f.hj=f.hj||function(){(f.hj.q=f.hj.q||[]).push(arguments)};
-    f._hjSettings={hjid:12350, hjsv:2};
-    function ls(){f.hj.documentHtml=b.documentElement.outerHTML;c=b.createElement("script");c.async=1;c.src="//static.hotjar.com/c/hotjar-12350.js?sv=2";b.getElementsByTagName("head")[0].appendChild(c);}
-    if(b.readyState==="interactive"||b.readyState==="complete"||b.readyState==="loaded"){ls();}else{if(b.addEventListener){b.addEventListener("DOMContentLoaded",ls,false);}}
-    if(!f._hjPlayback && b.addEventListener){
-        g.prototype.open=function(l,j,m,h,k){this._u=j;xo.call(this,l,j,m,h,k)};
-        g.prototype.send=function(e){var j=this;function h(){if(j.readyState===4){f.hj("_xhr",j._u,j.status,j.response)}}this.addEventListener("readystatechange",h,false);xs.call(this,e)};
-    }
-})(window,document,window.XMLHttpRequest);
-
-    </script>
-
-
-</head>
-
-<body>
-    <!--[if IE]>
-        <p class="site-notice">You are using an outdated browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true" target="_blank">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
-    <noscript>
-        <p class="site-notice">This site requires JavaScript. Here are the instructions <a href="http://www.enable-javascript.com/" target="_blank">how to enable JavaScript in your web browser</a>.</p>
-    </noscript>
-
-    <div class="nav-wrapper">
-        <div class="nav-form">
-            <span class="overlay-header menu">Menu</span>
-            <a class="btn-close">Close</a>
-            <div class="results">
-                <a href="/archives">Archives</a>
-                <a href="/categories/#articles">Articles</a>
-                <a href="/categories/#notes">Notes</a>
-                <a href="/categories">Categories</a>
-                <a href="/tags">Tags</a>
-                <a href="/">About</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="search-wrapper">
-        <div class="search-form">
-            <input type="text" class="overlay-header search-field" placeholder="Search...">
-            <a class="btn-close">Close</a>
-            <ul class="results"></ul>
-        </div>
-    </div>
-
-    <div id="page" class="hentry">
-        <header class="the-header">
-            <div class="unit-head">
-                <div class="unit-inner unit-head-inner">
-                    <nav class="nav-global">
-                        <ul>
-                            <li class="logo nav-link">
-                                <button class="btn-menu" data-ga="Menu"></button>
-                                <a href="/blog">YuWang</a>
-                                <!--[if !IE]> --><button class="btn-search" data-ga="Search"></button><!-- <![endif]-->
-                            </li>
-                            <li class="nav-link"><a data-ga="Archives" href="/archives">Archives</a></li>
-                            <li class="nav-link"><a data-ga="Articles" href="/categories#articles">Articles</a></li>
-                            <li class="nav-link"><a data-ga="Notes" href="/categories#notes">Notes</a></li>
-                            <li class="nav-link"><a data-ga="Categories" href="/categories">Categories</a></li>
-                            <li class="nav-link"><a data-ga="Tags" href="/tags">Tags</a></li>
-                            <!--[if !IE]> --><li class="nav-link"><a data-ga="Search" class="btn-search" href="#">Search</a></li><!-- <![endif]-->
-                        </ul>
-                    </nav>
-                </div><!-- unit-inner -->
-            </div><!-- unit-head -->
-        </header>
-
-        <div class="body animated fadeInDown" role="main">
-            <div class="unit-body">
-                <div class="unit-inner unit-body-inner">
-                    <div class="entry-content">
-                        
-<article class="unit-article layout-post">
-    <div class="unit-inner unit-article-inner">
-        <div itemscope itemtype="http://schema.org/Article" class="content">
-            <header>
-                <div class="unit-head">
-                    <div class="unit-inner unit-head-inner">
-                        <h1 itemprop="name" class="entry-title">WPF中实现自定义虚拟容器(实现VirtualizingPanel)</h1>
-                    </div><!-- unit-inner -->
-                </div><!-- unit-head -->
-            </header>
-            <div class="bd">
-                <div class="entry-content">
-                        <div class="meta">
-                            <p class="date-publish">
-                               Published: <time itemprop="datePublished" class="date-pub updated" title="2012-09-07T00:00:00+08:00" datetime="2012-09-07T00:00:00+08:00">September 07, 2012 </time> by 
-                                <a class="author" href="/" rel="author"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yu Wang</span></span></a>
-                                <a class="license image-link" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
-                                    <img alt="Creative Commons Licence" style="border-width:0" src="/assets/images/cc-by-sa.png"  height="16" width="80"/>
-                                </a>
-                                
-                            </p>
-                            <ul class="list-category list-linear">
-                                <li class="list-head">Categories: </li>
-                                
-                                
-
-
-    
-        
-    
-
-
-                            </ul>
-                            <ul class="list-tag list-linear">
-                                <li class="list-head">Tags: </li>
-                                
-                                
-
-
-    
-        
-            
-            <li>
-                <a data-ga="WPF" href="/tags/#WPF" title="WPF">WPF <span>2</span></a>
-            </li>
-        
-    
-
-
-
-                            </ul>
-                        </div><!-- meta -->
-                        <div itemprop="articleBody">
-                            <p><span style="font-family: 微软雅黑; font-size: medium;">在WPF应用程序开发过程中，大数据量的数据展现通常都要考虑性能问题。有下面一种常见的情况:原始数据源数据量很大，但是某一时刻数据容器中的可见元素个数是有限的，剩余大多数元素都处于不可见状态，如果一次性将所有的数据元素都渲染出来则会非常的消耗性能。因而可以考虑只渲染当前可视区域内的元素，当可视区域内的元素需要发生改变时，再渲染即将展现的元素，最后将不再需要展现的元素清除掉，这样可以大大提高性能。在WPF中System.Windows.Controls命名空间下的</span><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.controls.virtualizingstackpanel.aspx" target="_blank"><span style="font-family: 微软雅黑; font-size: medium;">VirtualizingStackPanel</span></a><span style="font-family: 微软雅黑; font-size: medium;">可以实现数据展现的虚拟化功能，ListBox的默认元素展现容器就是它。但有时</span><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.controls.virtualizingstackpanel.aspx" target="_blank"><span style="font-family: 微软雅黑; font-size: medium;">VirtualizingStackPanel</span></a><span style="font-family: 微软雅黑; font-size: medium;">的布局并不能满足我们的实际需要，此时就需要实现自定义布局的虚拟容器了。本文将简单介绍容器自定义布局，然后介绍实现虚拟容器的基本原理，最后给出一个虚拟化分页容器的演示程序。 </span></p>
-<p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">&nbsp;</span></p>
-<h2 style="background: #4dc962; border: #cdc9f2 2px solid; padding: 5px;"><span style="font-family: 微软雅黑;"><span style="color: #ffffff;">一、WPF中自定义布局 （已了解容器自定义布局的朋友可略过此节）</span></span></h2>
-<p><span style="font-family: 微软雅黑; font-size: medium;">通常实现一个自定义布局的容器，需要继承System.Windows.Controls.Panel, 并重写下面两个方法: </span></p>
-<p><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.measureoverride.aspx" target="_blank"><strong><span style="font-family: 微软雅黑; font-size: medium;">MeasureOverride</span></strong></a><span style="font-family: 微软雅黑; font-size: medium;"> &mdash;&mdash; 用来测量子元素期望的布局尺寸</span></p>
-<p><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.arrangeoverride.aspx" target="_blank"><strong><span style="font-family: 微软雅黑; font-size: medium;">ArrangeOverride</span></strong></a><span style="font-family: 微软雅黑; font-size: medium;"> &mdash;&mdash; 用来安排子元素在容器中的布局。</span></p>
-<p>&nbsp;</p>
-<p><span style="font-family: 微软雅黑; font-size: medium;">下面用一个简单的SplitPanel来加以说明这两个方法的作用。下面的Window中放置了一个SplitPanel，每点击一次&ldquo;添加&rdquo;按钮，都会向SplitPanel中添加一个填充了随机色的Rectangle， 而SplitPanel中的Rectangle无论有几个，都会在垂直方向上布满容器，水平方向上平均分配宽度。</span></p>
-<p><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072222304717.png"><span style="font-family: 微软雅黑;"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="2012090619124827" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072222348191.png" alt="2012090619124827" width="428" height="322" border="0" /></span></a></p>
-<p><span style="font-family: 微软雅黑;">实现代码如下:</span></p>
-<div class="cnblogs_code" onclick="cnblogs_code_show('860f43bc-6b22-42d2-b79a-bcc928f66cd3')"><img id="code_img_closed_860f43bc-6b22-42d2-b79a-bcc928f66cd3" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" /><img id="code_img_opened_860f43bc-6b22-42d2-b79a-bcc928f66cd3" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('860f43bc-6b22-42d2-b79a-bcc928f66cd3',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" /><span class="cnblogs_code_collapse">SplitPanel </span>
-<div id="cnblogs_code_open_860f43bc-6b22-42d2-b79a-bcc928f66cd3" class="cnblogs_code_hide">
-<pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
+<!DOCTYPE html> <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--> <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]--> <!--[if IE 8]><html class="no-js lt-ie9"><![endif]--> <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]--> <head> <meta charset="utf-8"> <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]--> <meta name="viewport" content="width=device-width,initial-scale=1"> <meta name="author" content="Yu Wang"> <meta name="description" content="Personal blog for YuWang, a software engineer based in HeiFei,AnHui,China."/> <meta name="keywords" content="yuwang,WPF"/> <title>WPF中实现自定义虚拟容器(实现VirtualizingPanel) - YuWang</title> <link href='/assets/css/blog-style.css' rel="stylesheet" type="text/css"> <link href="/rss.xml" rel="alternate" title="YuWang" type="application/rss+xml"> <!--[if IE]><script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script> <script>window.Modernizr||document.write('<script src="/assets/js/modernizr-2.0.6.min.js"><\/script>');</script><![endif]--> <!--[if !IE]>--> <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> <script>window.Modernizr||document.write('<script src="/assets/js/modernizr-2.6.2.min.js"><\/script>');</script> <!--<![endif]--> <script>if(!navigator.userAgent.match(/.*(Pingdom|PhantomJS|StatusCake).*/gi)){var _hmt=_hmt||[];(function(){var b=document.createElement("script");b.src="//hm.baidu.com/hm.js?1096ce63809d64d11df8da9b7c7d3ca9";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})()}(function(j,a,h){var i=h.prototype.open,e=h.prototype.send,k;j.hj=j.hj||function(){(j.hj.q=j.hj.q||[]).push(arguments)};j._hjSettings={hjid:12350,hjsv:2};function d(){j.hj.documentHtml=a.documentElement.outerHTML;k=a.createElement("script");k.async=1;k.src="//static.hotjar.com/c/hotjar-12350.js?sv=2";a.getElementsByTagName("head")[0].appendChild(k)}if(a.readyState==="interactive"||a.readyState==="complete"||a.readyState==="loaded"){d()}else{if(a.addEventListener){a.addEventListener("DOMContentLoaded",d,false)}}if(!j._hjPlayback&&a.addEventListener){h.prototype.open=function(c,g,b,n,f){this._u=g;i.call(this,c,g,b,n,f)};h.prototype.send=function(f){var b=this;function c(){if(b.readyState===4){j.hj("_xhr",b._u,b.status,b.response)}}this.addEventListener("readystatechange",c,false);e.call(this,f)}}})(window,document,window.XMLHttpRequest);</script> </head> <body> <!--[if IE]><p class="site-notice">You are using an outdated browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true" target="_blank">activate Google Chrome Frame</a> to improve your experience.</p><![endif]--> <noscript> <p class="site-notice">This site requires JavaScript. Here are the instructions <a href="http://www.enable-javascript.com/" target="_blank">how to enable JavaScript in your web browser</a>.</p> </noscript> <div class="nav-wrapper"> <div class="nav-form"> <span class="overlay-header menu">Menu</span> <a class="btn-close">Close</a> <div class="results"> <a href="/archives">Archives</a> <a href="/categories/#articles">Articles</a> <a href="/categories/#notes">Notes</a> <a href="/categories">Categories</a> <a href="/tags">Tags</a> <a href="/">About</a> </div> </div> </div> <div class="search-wrapper"> <div class="search-form"> <input type="text" class="overlay-header search-field" placeholder="Search..."> <a class="btn-close">Close</a> <ul class="results"></ul> </div> </div> <div id="page" class="hentry"> <header class="the-header"> <div class="unit-head"> <div class="unit-inner unit-head-inner"> <nav class="nav-global"> <ul> <li class="logo nav-link"> <button class="btn-menu" data-ga="Menu"></button> <a href="/blog">YuWang</a> <!--[if !IE]>--><button class="btn-search" data-ga="Search"></button><!--<![endif]--> </li> <li class="nav-link"><a data-ga="Archives" href="/archives">Archives</a></li> <li class="nav-link"><a data-ga="Articles" href="/categories#articles">Articles</a></li> <li class="nav-link"><a data-ga="Notes" href="/categories#notes">Notes</a></li> <li class="nav-link"><a data-ga="Categories" href="/categories">Categories</a></li> <li class="nav-link"><a data-ga="Tags" href="/tags">Tags</a></li> <!--[if !IE]>--><li class="nav-link"><a data-ga="Search" class="btn-search" href="#">Search</a></li><!--<![endif]--> </ul> </nav> </div> </div> </header> <div class="body animated fadeInDown" role="main"> <div class="unit-body"> <div class="unit-inner unit-body-inner"> <div class="entry-content"> <article class="unit-article layout-post"> <div class="unit-inner unit-article-inner"> <div itemscope itemtype="http://schema.org/Article" class="content"> <header> <div class="unit-head"> <div class="unit-inner unit-head-inner"> <h1 itemprop="name" class="entry-title">WPF中实现自定义虚拟容器(实现VirtualizingPanel)</h1> </div> </div> </header> <div class="bd"> <div class="entry-content"> <div class="meta"> <p class="date-publish"> Published: <time itemprop="datePublished" class="date-pub updated" title="2012-09-07T00:00:00+08:00" datetime="2012-09-07T00:00:00+08:00">September 07, 2012 </time> by <a class="author" href="/" rel="author"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yu Wang</span></span></a> <a class="license image-link" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"> <img alt="Creative Commons Licence" style="border-width:0" src="/assets/images/cc-by-sa.png" height="16" width="80"/> </a> </p> <ul class="list-category list-linear"> <li class="list-head">Categories: </li> </ul> <ul class="list-tag list-linear"> <li class="list-head">Tags: </li> <li> <a data-ga="WPF" href="/tags/#WPF" title="WPF">WPF <span>2</span></a> </li> </ul> </div> <div itemprop="articleBody"> <p><span style="font-family: 微软雅黑; font-size: medium;">在WPF应用程序开发过程中，大数据量的数据展现通常都要考虑性能问题。有下面一种常见的情况:原始数据源数据量很大，但是某一时刻数据容器中的可见元素个数是有限的，剩余大多数元素都处于不可见状态，如果一次性将所有的数据元素都渲染出来则会非常的消耗性能。因而可以考虑只渲染当前可视区域内的元素，当可视区域内的元素需要发生改变时，再渲染即将展现的元素，最后将不再需要展现的元素清除掉，这样可以大大提高性能。在WPF中System.Windows.Controls命名空间下的</span><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.controls.virtualizingstackpanel.aspx" target="_blank"><span style="font-family: 微软雅黑; font-size: medium;">VirtualizingStackPanel</span></a><span style="font-family: 微软雅黑; font-size: medium;">可以实现数据展现的虚拟化功能，ListBox的默认元素展现容器就是它。但有时</span><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.controls.virtualizingstackpanel.aspx" target="_blank"><span style="font-family: 微软雅黑; font-size: medium;">VirtualizingStackPanel</span></a><span style="font-family: 微软雅黑; font-size: medium;">的布局并不能满足我们的实际需要，此时就需要实现自定义布局的虚拟容器了。本文将简单介绍容器自定义布局，然后介绍实现虚拟容器的基本原理，最后给出一个虚拟化分页容器的演示程序。 </span></p> <p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">&nbsp;</span></p> <h2 style="background: #4dc962; border: #cdc9f2 2px solid; padding: 5px;"><span style="font-family: 微软雅黑;"><span style="color: #ffffff;">一、WPF中自定义布局 （已了解容器自定义布局的朋友可略过此节）</span></span></h2> <p><span style="font-family: 微软雅黑; font-size: medium;">通常实现一个自定义布局的容器，需要继承System.Windows.Controls.Panel, 并重写下面两个方法: </span></p> <p><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.measureoverride.aspx" target="_blank"><strong><span style="font-family: 微软雅黑; font-size: medium;">MeasureOverride</span></strong></a><span style="font-family: 微软雅黑; font-size: medium;"> &mdash;&mdash; 用来测量子元素期望的布局尺寸</span></p> <p><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.arrangeoverride.aspx" target="_blank"><strong><span style="font-family: 微软雅黑; font-size: medium;">ArrangeOverride</span></strong></a><span style="font-family: 微软雅黑; font-size: medium;"> &mdash;&mdash; 用来安排子元素在容器中的布局。</span></p> <p>&nbsp;</p> <p><span style="font-family: 微软雅黑; font-size: medium;">下面用一个简单的SplitPanel来加以说明这两个方法的作用。下面的Window中放置了一个SplitPanel，每点击一次&ldquo;添加&rdquo;按钮，都会向SplitPanel中添加一个填充了随机色的Rectangle， 而SplitPanel中的Rectangle无论有几个，都会在垂直方向上布满容器，水平方向上平均分配宽度。</span></p> <p><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072222304717.png"><span style="font-family: 微软雅黑;"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="2012090619124827" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072222348191.png" alt="2012090619124827" width="428" height="322" border="0"/></span></a></p> <p><span style="font-family: 微软雅黑;">实现代码如下:</span></p> <div class="cnblogs_code" onclick="cnblogs_code_show('860f43bc-6b22-42d2-b79a-bcc928f66cd3')"><img id="code_img_closed_860f43bc-6b22-42d2-b79a-bcc928f66cd3" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""/><img id="code_img_opened_860f43bc-6b22-42d2-b79a-bcc928f66cd3" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('860f43bc-6b22-42d2-b79a-bcc928f66cd3',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""/><span class="cnblogs_code_collapse">SplitPanel </span> <div id="cnblogs_code_open_860f43bc-6b22-42d2-b79a-bcc928f66cd3" class="cnblogs_code_hide"> <pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
 <span style="color: #008080;"> 2</span> <span style="color: #808080;">///</span><span style="color: #008000;"> 简单的自定义容器
 </span><span style="color: #008080;"> 3</span> <span style="color: #808080;">///</span><span style="color: #008000;"> 子元素在垂直方向布满容器，水平方向平局分配容器宽度
 </span><span style="color: #008080;"> 4</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;/summary&gt;</span>
@@ -217,26 +34,7 @@
 </span><span style="color: #008080;">34</span> 
 <span style="color: #008080;">35</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">base</span><span style="color: #000000;">.ArrangeOverride(finalSize);
 </span><span style="color: #008080;">36</span> <span style="color: #000000;">    }
-</span><span style="color: #008080;">37</span> }</pre>
-</div>
-</div>
-<p><span style="font-size: medium;">SplitPanel的</span><strong style="font-size: medium;"><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.measureoverride.aspx" target="_blank">MeasureOverride</a>&nbsp;</strong><span style="font-size: medium;">方法参数availableSize是容器可以给出的总布局大小，在方法体中只依次调用了子元素的Measure方法，调用该方法后，子元素的DesiredSize属性就会被赋值, 该属性指明了子元素期望的布局尺寸。（在SplitPanel中并不需要知道子元素的期望布局尺寸，所以可以不必重写</span><strong style="font-size: medium;"><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.measureoverride.aspx" target="_blank">MeasureOverride</a>&nbsp;</strong><span style="font-size: medium;">方法，但是在一些比较复杂的布局中需要用到子元素的DesiredSize属性时就必须重写）</span></p>
-<p><span style="font-family: 微软雅黑; font-size: medium;">SplitPaneld的<strong><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.arrangeoverride.aspx" target="_blank">ArrangeOverride</a>&nbsp;</strong>方法参数finalSize是容器最终给出的布局大小，26行根据子元素个数先计算出子元素平均宽度，30行再按照子元素索引计算出各自的布局区域信息。然后31行调用子元素的Arrange方法将子元素安排在容器中的合适位置。这样就可以实现期望的布局效果。当UI重绘时(例如子元素个数发生改变、容器布局尺寸发生改变、强制刷新UI等)，会重新执行</span><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.measureoverride.aspx" target="_blank"><strong><span style="font-family: 微软雅黑; font-size: medium;">MeasureOverride</span></strong></a><span style="font-family: 微软雅黑; font-size: medium;"> 和</span><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.arrangeoverride.aspx" target="_blank"><strong><span style="font-family: 微软雅黑; font-size: medium;">ArrangeOverride</span></strong></a><span style="font-family: 微软雅黑; font-size: medium;"> 方法。 <br clear="all" /><br /></span></p>
-<h2 style="background: #4dc962; border: #cdc9f2 2px solid; padding: 5px;"><span style="font-family: 微软雅黑;"><span style="color: #ffffff;">二、虚拟容器原理</span></span></h2>
-<p><span style="font-family: 微软雅黑; font-size: medium;">要想实现一个虚拟容器，并让虚拟容器正常工作，必须满足以下两个条件:</span></p>
-<p><strong><span style="font-family: 微软雅黑; font-size: medium;">1、容器继承自System.Windows.Controls.VirtualizingPanel，并实现子元素的实例化、虚拟化及布局处理。</span></strong></p>
-<p><strong><span style="font-family: 微软雅黑; font-size: medium;">2、虚拟容器要做为一个System.Windows.Controls.ItemsControl（或继承自ItemsControl的类）实例的ItemsPanel（实际上是定义一个ItemsPanelTemplate） 
-      <br clear="all" /></span></strong></p>
-<p>&nbsp;</p>
-<p><span style="font-family: 微软雅黑; font-size: medium;">下面我们先来了解一下ItemsControl的工作机制：</span></p>
-<p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">当我们为一个ItemsControl指定了ItemsSource属性后，ItemsControl的Items属性就会被初始化,这里面装的就是原始的数据(<em><span style="background-color: #cccccc;">题外话:通过修改Items的Filter可以实现不切换数据源的元素过滤，修改Items的SortDescriptions属性可以实现不切换数据源的元素排序</span></em>)。之后ItemsControl会根据Items来生成<strong>子元素的容器</strong>(ItemsControl生成ContentPresenter, ListBox生成ListBoxItem, ComboBox生成ComboBox等等)，同时将子元素容器的<strong>DataContext设置为与之对应的数据源</strong>，最后每个子元素容器再根据ItemTemplate的定义来渲染子元素实际显示效果。</span></p>
-<p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">对于Panel来说，ItemsControl会一次性生成所有子元素的子元素容器并进行数据初始化，这样就导致在数据量较大时性能会很差。而对于VirtualizingPanel，ItemsControl则不会自动生成子元素容器及子元素的渲染，这一过程需要编程实现。 
-    <br clear="all" /></span></p>
-<p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">接下来我们引入另一个重要概念:<a href="http://msdn.microsoft.com/zh-cn/library/system.windows.controls.primitives.generatorposition.aspx" target="_blank"><span style="font-family: 微软雅黑; font-size: medium;"><strong>GeneratorPosition</strong></span></a>,这个结构体用来描述ItemsControl的Items属性中实例化和虚拟化数据项的位置关系，在VirtualizingPanel中可以通过<a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.primitives.iitemcontainergenerator.aspx" target="_blank"><strong>ItemContainerGenerator</strong></a>（注意:在VirtualizingPanel第一次访问这个属性之前要先访问一下InternalChildren属性，否则<a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.primitives.iitemcontainergenerator.aspx" target="_blank"><strong>ItemContainerGenerator</strong></a>会是null，貌似是一个Bug）属性来获取数据项的位置信息，此外通过这个属性还可以进行数据项的实例化和虚拟化。</span></p>
-<p><strong style="font-family: 微软雅黑; font-size: medium;">获取数据项GeneratorPosition信息：</strong></p>
-<div class="cnblogs_code" onclick="cnblogs_code_show('1017abaa-72fc-4e3d-8571-4d6eb259ca04')"><img id="code_img_closed_1017abaa-72fc-4e3d-8571-4d6eb259ca04" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" /><img id="code_img_opened_1017abaa-72fc-4e3d-8571-4d6eb259ca04" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('1017abaa-72fc-4e3d-8571-4d6eb259ca04',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" /><span class="cnblogs_code_collapse">DumpGeneratorContent</span>
-<div id="cnblogs_code_open_1017abaa-72fc-4e3d-8571-4d6eb259ca04" class="cnblogs_code_hide">
-<pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
+</span><span style="color: #008080;">37</span> }</pre> </div> </div> <p><span style="font-size: medium;">SplitPanel的</span><strong style="font-size: medium;"><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.measureoverride.aspx" target="_blank">MeasureOverride</a>&nbsp;</strong><span style="font-size: medium;">方法参数availableSize是容器可以给出的总布局大小，在方法体中只依次调用了子元素的Measure方法，调用该方法后，子元素的DesiredSize属性就会被赋值, 该属性指明了子元素期望的布局尺寸。（在SplitPanel中并不需要知道子元素的期望布局尺寸，所以可以不必重写</span><strong style="font-size: medium;"><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.measureoverride.aspx" target="_blank">MeasureOverride</a>&nbsp;</strong><span style="font-size: medium;">方法，但是在一些比较复杂的布局中需要用到子元素的DesiredSize属性时就必须重写）</span></p> <p><span style="font-family: 微软雅黑; font-size: medium;">SplitPaneld的<strong><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.arrangeoverride.aspx" target="_blank">ArrangeOverride</a>&nbsp;</strong>方法参数finalSize是容器最终给出的布局大小，26行根据子元素个数先计算出子元素平均宽度，30行再按照子元素索引计算出各自的布局区域信息。然后31行调用子元素的Arrange方法将子元素安排在容器中的合适位置。这样就可以实现期望的布局效果。当UI重绘时(例如子元素个数发生改变、容器布局尺寸发生改变、强制刷新UI等)，会重新执行</span><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.measureoverride.aspx" target="_blank"><strong><span style="font-family: 微软雅黑; font-size: medium;">MeasureOverride</span></strong></a><span style="font-family: 微软雅黑; font-size: medium;"> 和</span><a href="http://msdn.microsoft.com/zh-cn/library/system.windows.frameworkelement.arrangeoverride.aspx" target="_blank"><strong><span style="font-family: 微软雅黑; font-size: medium;">ArrangeOverride</span></strong></a><span style="font-family: 微软雅黑; font-size: medium;"> 方法。 <br clear="all"/><br/></span></p> <h2 style="background: #4dc962; border: #cdc9f2 2px solid; padding: 5px;"><span style="font-family: 微软雅黑;"><span style="color: #ffffff;">二、虚拟容器原理</span></span></h2> <p><span style="font-family: 微软雅黑; font-size: medium;">要想实现一个虚拟容器，并让虚拟容器正常工作，必须满足以下两个条件:</span></p> <p><strong><span style="font-family: 微软雅黑; font-size: medium;">1、容器继承自System.Windows.Controls.VirtualizingPanel，并实现子元素的实例化、虚拟化及布局处理。</span></strong></p> <p><strong><span style="font-family: 微软雅黑; font-size: medium;">2、虚拟容器要做为一个System.Windows.Controls.ItemsControl（或继承自ItemsControl的类）实例的ItemsPanel（实际上是定义一个ItemsPanelTemplate） <br clear="all"/></span></strong></p> <p>&nbsp;</p> <p><span style="font-family: 微软雅黑; font-size: medium;">下面我们先来了解一下ItemsControl的工作机制：</span></p> <p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">当我们为一个ItemsControl指定了ItemsSource属性后，ItemsControl的Items属性就会被初始化,这里面装的就是原始的数据(<em><span style="background-color: #cccccc;">题外话:通过修改Items的Filter可以实现不切换数据源的元素过滤，修改Items的SortDescriptions属性可以实现不切换数据源的元素排序</span></em>)。之后ItemsControl会根据Items来生成<strong>子元素的容器</strong>(ItemsControl生成ContentPresenter, ListBox生成ListBoxItem, ComboBox生成ComboBox等等)，同时将子元素容器的<strong>DataContext设置为与之对应的数据源</strong>，最后每个子元素容器再根据ItemTemplate的定义来渲染子元素实际显示效果。</span></p> <p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">对于Panel来说，ItemsControl会一次性生成所有子元素的子元素容器并进行数据初始化，这样就导致在数据量较大时性能会很差。而对于VirtualizingPanel，ItemsControl则不会自动生成子元素容器及子元素的渲染，这一过程需要编程实现。 <br clear="all"/></span></p> <p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">接下来我们引入另一个重要概念:<a href="http://msdn.microsoft.com/zh-cn/library/system.windows.controls.primitives.generatorposition.aspx" target="_blank"><span style="font-family: 微软雅黑; font-size: medium;"><strong>GeneratorPosition</strong></span></a>,这个结构体用来描述ItemsControl的Items属性中实例化和虚拟化数据项的位置关系，在VirtualizingPanel中可以通过<a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.primitives.iitemcontainergenerator.aspx" target="_blank"><strong>ItemContainerGenerator</strong></a>（注意:在VirtualizingPanel第一次访问这个属性之前要先访问一下InternalChildren属性，否则<a href="http://msdn.microsoft.com/en-us/library/system.windows.controls.primitives.iitemcontainergenerator.aspx" target="_blank"><strong>ItemContainerGenerator</strong></a>会是null，貌似是一个Bug）属性来获取数据项的位置信息，此外通过这个属性还可以进行数据项的实例化和虚拟化。</span></p> <p><strong style="font-family: 微软雅黑; font-size: medium;">获取数据项GeneratorPosition信息：</strong></p> <div class="cnblogs_code" onclick="cnblogs_code_show('1017abaa-72fc-4e3d-8571-4d6eb259ca04')"><img id="code_img_closed_1017abaa-72fc-4e3d-8571-4d6eb259ca04" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""/><img id="code_img_opened_1017abaa-72fc-4e3d-8571-4d6eb259ca04" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('1017abaa-72fc-4e3d-8571-4d6eb259ca04',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""/><span class="cnblogs_code_collapse">DumpGeneratorContent</span> <div id="cnblogs_code_open_1017abaa-72fc-4e3d-8571-4d6eb259ca04" class="cnblogs_code_hide"> <pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
 <span style="color: #008080;"> 2</span> <span style="color: #808080;">///</span><span style="color: #008000;"> 显示数据GeneratorPosition信息
 </span><span style="color: #008080;"> 3</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;/summary&gt;</span>
 <span style="color: #008080;"> 4</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> DumpGeneratorContent()
@@ -251,17 +49,7 @@
 </span><span style="color: #008080;">13</span>         Console.WriteLine(<span style="color: #800000;">"</span><span style="color: #800000;">Item index=</span><span style="color: #800000;">"</span> + i + <span style="color: #800000;">"</span><span style="color: #800000;">, Generator position: index=</span><span style="color: #800000;">"</span> + position.Index + <span style="color: #800000;">"</span><span style="color: #800000;">, offset=</span><span style="color: #800000;">"</span> +<span style="color: #000000;"> position.Offset);
 </span><span style="color: #008080;">14</span> <span style="color: #000000;">    }
 </span><span style="color: #008080;">15</span> <span style="color: #000000;">    Console.WriteLine();
-</span><span style="color: #008080;">16</span> }</pre>
-</div>
-</div>
-<p><span style="font-family: 微软雅黑; font-size: medium;">第7行通过ItemsControl的静态方法GetItemsOwner可以找到容器所在的ItemsControl，这样就可以访问到数据项集合，第12行代码调用generator 的GeneratorPositionFromIndex方法，通过数据项的索引得到数据项的GeneratorPosition 信息。</span></p>
-<div class="csharpcode">
-<div class="csharpcode">
-<pre>&nbsp;</pre>
-<span style="font-family: 微软雅黑; font-size: medium;"><span style="font-family: 微软雅黑; font-size: medium;"><strong>数据项实例化：</strong></span></span>
-<div class="cnblogs_code" onclick="cnblogs_code_show('aff6063c-28f1-45ae-88fe-f72dffd8b0ae')"><img id="code_img_closed_aff6063c-28f1-45ae-88fe-f72dffd8b0ae" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" /><img id="code_img_opened_aff6063c-28f1-45ae-88fe-f72dffd8b0ae" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('aff6063c-28f1-45ae-88fe-f72dffd8b0ae',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" /><span class="cnblogs_code_collapse">RealizeChild</span>
-<div id="cnblogs_code_open_aff6063c-28f1-45ae-88fe-f72dffd8b0ae" class="cnblogs_code_hide">
-<pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
+</span><span style="color: #008080;">16</span> }</pre> </div> </div> <p><span style="font-family: 微软雅黑; font-size: medium;">第7行通过ItemsControl的静态方法GetItemsOwner可以找到容器所在的ItemsControl，这样就可以访问到数据项集合，第12行代码调用generator 的GeneratorPositionFromIndex方法，通过数据项的索引得到数据项的GeneratorPosition 信息。</span></p> <div class="csharpcode"> <div class="csharpcode"> <pre>&nbsp;</pre> <span style="font-family: 微软雅黑; font-size: medium;"><span style="font-family: 微软雅黑; font-size: medium;"><strong>数据项实例化：</strong></span></span> <div class="cnblogs_code" onclick="cnblogs_code_show('aff6063c-28f1-45ae-88fe-f72dffd8b0ae')"><img id="code_img_closed_aff6063c-28f1-45ae-88fe-f72dffd8b0ae" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""/><img id="code_img_opened_aff6063c-28f1-45ae-88fe-f72dffd8b0ae" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('aff6063c-28f1-45ae-88fe-f72dffd8b0ae',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""/><span class="cnblogs_code_collapse">RealizeChild</span> <div id="cnblogs_code_open_aff6063c-28f1-45ae-88fe-f72dffd8b0ae" class="cnblogs_code_hide"> <pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
 <span style="color: #008080;"> 2</span> <span style="color: #808080;">///</span><span style="color: #008000;"> 实例化子元素
 </span><span style="color: #008080;"> 3</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;/summary&gt;</span>
 <span style="color: #008080;"> 4</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;param name="itemIndex"&gt;</span><span style="color: #008000;">数据条目索引</span><span style="color: #808080;">&lt;/param&gt;</span>
@@ -280,18 +68,7 @@
 </span><span style="color: #008080;">17</span>             generator.PrepareItemContainer(child); <span style="color: #008000;">//</span><span style="color: #008000;"> 填充UI容器数据</span>
 <span style="color: #008080;">18</span> <span style="color: #000000;">        }
 </span><span style="color: #008080;">19</span> <span style="color: #000000;">    }
-</span><span style="color: #008080;">20</span> }</pre>
-</div>
-</div>
-<p><span style="font-family: 微软雅黑; font-size: medium;">第10行调用generator 的StartAt方法确定准备实例化元素的数据项位置，第13行调用generator的GenerateNext方法进行数据项的实例化，输出参数isNewlyRealized为ture则表明该元素是从虚拟化状态实例化出来的，false则表明该元素已被实例化。注意，该方法只是构造出了子元素的UI容器，只有调用了17行的PrepareItemContainer方法，UI容器的实际内容才会根据ItemsControl的ItemTemplate定义进行渲染。</span></p>
-</div>
-<div class="csharpcode">
-<div class="csharpcode">
-<pre>&nbsp;</pre>
-<span style="font-family: 微软雅黑; font-size: medium;"><span style="font-family: 微软雅黑; font-size: medium;"><strong>数据项虚拟化：</strong></span></span>
-<div class="cnblogs_code" onclick="cnblogs_code_show('9276a821-4675-47bd-a94f-ca5ad0e1d540')"><img id="code_img_closed_9276a821-4675-47bd-a94f-ca5ad0e1d540" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" /><img id="code_img_opened_9276a821-4675-47bd-a94f-ca5ad0e1d540" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('9276a821-4675-47bd-a94f-ca5ad0e1d540',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" /><span class="cnblogs_code_collapse">VirtualizeChild</span>
-<div id="cnblogs_code_open_9276a821-4675-47bd-a94f-ca5ad0e1d540" class="cnblogs_code_hide">
-<pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
+</span><span style="color: #008080;">20</span> }</pre> </div> </div> <p><span style="font-family: 微软雅黑; font-size: medium;">第10行调用generator 的StartAt方法确定准备实例化元素的数据项位置，第13行调用generator的GenerateNext方法进行数据项的实例化，输出参数isNewlyRealized为ture则表明该元素是从虚拟化状态实例化出来的，false则表明该元素已被实例化。注意，该方法只是构造出了子元素的UI容器，只有调用了17行的PrepareItemContainer方法，UI容器的实际内容才会根据ItemsControl的ItemTemplate定义进行渲染。</span></p> </div> <div class="csharpcode"> <div class="csharpcode"> <pre>&nbsp;</pre> <span style="font-family: 微软雅黑; font-size: medium;"><span style="font-family: 微软雅黑; font-size: medium;"><strong>数据项虚拟化：</strong></span></span> <div class="cnblogs_code" onclick="cnblogs_code_show('9276a821-4675-47bd-a94f-ca5ad0e1d540')"><img id="code_img_closed_9276a821-4675-47bd-a94f-ca5ad0e1d540" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""/><img id="code_img_opened_9276a821-4675-47bd-a94f-ca5ad0e1d540" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('9276a821-4675-47bd-a94f-ca5ad0e1d540',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""/><span class="cnblogs_code_collapse">VirtualizeChild</span> <div id="cnblogs_code_open_9276a821-4675-47bd-a94f-ca5ad0e1d540" class="cnblogs_code_hide"> <pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
 <span style="color: #008080;"> 2</span> <span style="color: #808080;">///</span><span style="color: #008000;"> 虚拟化子元素
 </span><span style="color: #008080;"> 3</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;/summary&gt;</span>
 <span style="color: #008080;"> 4</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;param name="itemIndex"&gt;</span><span style="color: #008000;">数据条目索引</span><span style="color: #808080;">&lt;/param&gt;</span>
@@ -303,40 +80,7 @@
 </span><span style="color: #008080;">10</span> <span style="color: #000000;">    {
 </span><span style="color: #008080;">11</span>         generator.Remove(childGeneratorPos, <span style="color: #800080;">1</span>); <span style="color: #008000;">//</span><span style="color: #008000;"> 虚拟化(从子元素UI容器中清除数据)</span>
 <span style="color: #008080;">12</span> <span style="color: #000000;">    }
-</span><span style="color: #008080;">13</span> }</pre>
-</div>
-</div>
-<p><span style="font-family: 微软雅黑; font-size: medium;">通过数据条目索引得出GeneratorPosition 信息，之后在11行调用generator的Remove方法即可实现元素的虚拟化。</span></p>
-</div>
-<div class="csharpcode">
-<div class="csharpcode">
-<pre>&nbsp;</pre>
-<div align="left"><span style="font-family: 微软雅黑; font-size: medium;">通过几张图片来有一个直观的认识，数据条目一共有10个，初始化时全部都为虚拟化状态：</span>
-<pre><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072222386956.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="1" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072222448804.png" alt="1" width="441" height="279" border="0" /></a></pre>
-<pre>&nbsp;</pre>
-<span style="font-family: 微软雅黑; font-size: medium;">实例化第二个元素:</span>
-<pre><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072222471854.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="2" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072222537323.png" alt="2" width="445" height="281" border="0" /></a></pre>
-<pre>&nbsp;</pre>
-<span style="font-family: 微软雅黑; font-size: medium;">增加实例化第三、七个元素：</span>
-<pre><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072222561943.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="3" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072223045.png" alt="3" width="449" height="284" border="0" /></a></pre>
-<pre>&nbsp;</pre>
-<span style="font-family: 微软雅黑; font-size: medium;">虚拟化第二个元素：</span>
-<pre><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072223087100.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="4" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072223161848.png" alt="4" width="454" height="287" border="0" /></a></pre>
-<span style="font-family: 微软雅黑; font-size: medium;">通过观察可以发现，<span style="color: #000000;"><strong>实例化的数据项位置信息按顺序从0开始依次增加，所有实例化的数据项位置信息的offset属性都是0，虚拟化数据项index和前一个最近的实例化元素index保持一致，offset依次增加</strong>。</span></span></div>
-<pre>&nbsp;</pre>
-</div>
-</div>
-</div>
-</div>
-<h2 style="background: #4dc962; border: #cdc9f2 2px solid; padding: 5px;"><span style="color: #ffffff; font-family: 微软雅黑;">三、实战-实现一个虚拟化分页容器</span></h2>
-<p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">了解了子元素自定义布局、数据项GeneratorPosition信息、虚拟化、实例化相关概念和实现方法后，离实现一个自定义虚拟容器还剩一步重要的工作：计算当前应该显示的数据项起止索引，实例化这些数据项，虚拟化不再显示的数据项。</span></p>
-<p style="text-indent: 30px;">再前进一步，实现一个虚拟化分页容器：</p>
-<p style="text-indent: 30px;"><a href="/assets/images/posts/cnblogs_com/talywy/201209/20120907222317877.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="5" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072223268283.png" alt="5" width="244" height="230" border="0" /></a></p>
-<p style="text-indent: 30px;">这个虚拟化分页容器有ChildWidth和ChildHeight两个依赖属性，用来定义容器中子元素的宽和高，这样在容器布局尺寸确定的情况下可以计算出可用布局下一共能显示多少个子元素，也就是PageSize属性。为容器指定一个有5000个数据的数据源，再提供一个分页控件用来控制分页容器的PageIndex，用来达到分页显示的效果。</p>
-<p style="text-indent: 30px;">贴出主要代码：</p>
-<div class="cnblogs_code" onclick="cnblogs_code_show('bd39b889-d821-44d1-9f6a-e44a59b5acb1')"><img id="code_img_closed_bd39b889-d821-44d1-9f6a-e44a59b5acb1" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" /><img id="code_img_opened_bd39b889-d821-44d1-9f6a-e44a59b5acb1" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('bd39b889-d821-44d1-9f6a-e44a59b5acb1',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" /><span class="cnblogs_code_collapse">计算需要实例化数据项的起止索引</span>
-<div id="cnblogs_code_open_bd39b889-d821-44d1-9f6a-e44a59b5acb1" class="cnblogs_code_hide">
-<pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
+</span><span style="color: #008080;">13</span> }</pre> </div> </div> <p><span style="font-family: 微软雅黑; font-size: medium;">通过数据条目索引得出GeneratorPosition 信息，之后在11行调用generator的Remove方法即可实现元素的虚拟化。</span></p> </div> <div class="csharpcode"> <div class="csharpcode"> <pre>&nbsp;</pre> <div align="left"><span style="font-family: 微软雅黑; font-size: medium;">通过几张图片来有一个直观的认识，数据条目一共有10个，初始化时全部都为虚拟化状态：</span> <pre><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072222386956.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="1" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072222448804.png" alt="1" width="441" height="279" border="0" /></a></pre> <pre>&nbsp;</pre> <span style="font-family: 微软雅黑; font-size: medium;">实例化第二个元素:</span> <pre><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072222471854.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="2" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072222537323.png" alt="2" width="445" height="281" border="0" /></a></pre> <pre>&nbsp;</pre> <span style="font-family: 微软雅黑; font-size: medium;">增加实例化第三、七个元素：</span> <pre><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072222561943.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="3" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072223045.png" alt="3" width="449" height="284" border="0" /></a></pre> <pre>&nbsp;</pre> <span style="font-family: 微软雅黑; font-size: medium;">虚拟化第二个元素：</span> <pre><a href="/assets/images/posts/cnblogs_com/talywy/201209/201209072223087100.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="4" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072223161848.png" alt="4" width="454" height="287" border="0" /></a></pre> <span style="font-family: 微软雅黑; font-size: medium;">通过观察可以发现，<span style="color: #000000;"><strong>实例化的数据项位置信息按顺序从0开始依次增加，所有实例化的数据项位置信息的offset属性都是0，虚拟化数据项index和前一个最近的实例化元素index保持一致，offset依次增加</strong>。</span></span></div> <pre>&nbsp;</pre> </div> </div> </div> </div> <h2 style="background: #4dc962; border: #cdc9f2 2px solid; padding: 5px;"><span style="color: #ffffff; font-family: 微软雅黑;">三、实战-实现一个虚拟化分页容器</span></h2> <p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">了解了子元素自定义布局、数据项GeneratorPosition信息、虚拟化、实例化相关概念和实现方法后，离实现一个自定义虚拟容器还剩一步重要的工作：计算当前应该显示的数据项起止索引，实例化这些数据项，虚拟化不再显示的数据项。</span></p> <p style="text-indent: 30px;">再前进一步，实现一个虚拟化分页容器：</p> <p style="text-indent: 30px;"><a href="/assets/images/posts/cnblogs_com/talywy/201209/20120907222317877.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="5" src="/assets/images/posts/cnblogs_com/talywy/201209/201209072223268283.png" alt="5" width="244" height="230" border="0"/></a></p> <p style="text-indent: 30px;">这个虚拟化分页容器有ChildWidth和ChildHeight两个依赖属性，用来定义容器中子元素的宽和高，这样在容器布局尺寸确定的情况下可以计算出可用布局下一共能显示多少个子元素，也就是PageSize属性。为容器指定一个有5000个数据的数据源，再提供一个分页控件用来控制分页容器的PageIndex，用来达到分页显示的效果。</p> <p style="text-indent: 30px;">贴出主要代码：</p> <div class="cnblogs_code" onclick="cnblogs_code_show('bd39b889-d821-44d1-9f6a-e44a59b5acb1')"><img id="code_img_closed_bd39b889-d821-44d1-9f6a-e44a59b5acb1" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""/><img id="code_img_opened_bd39b889-d821-44d1-9f6a-e44a59b5acb1" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('bd39b889-d821-44d1-9f6a-e44a59b5acb1',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""/><span class="cnblogs_code_collapse">计算需要实例化数据项的起止索引</span> <div id="cnblogs_code_open_bd39b889-d821-44d1-9f6a-e44a59b5acb1" class="cnblogs_code_hide"> <pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
 <span style="color: #008080;"> 2</span> <span style="color: #808080;">///</span><span style="color: #008000;"> 计算可是元素起止索引
 </span><span style="color: #008080;"> 3</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;/summary&gt;</span>
 <span style="color: #008080;"> 4</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;param name="availableSize"&gt;</span><span style="color: #008000;">可用布局尺寸</span><span style="color: #808080;">&lt;/param&gt;</span>
@@ -368,12 +112,7 @@
 </span><span style="color: #008080;">30</span>         lastVisibleChildIndex = -<span style="color: #800080;">1</span><span style="color: #000000;">;
 </span><span style="color: #008080;">31</span>         PageSize = <span style="color: #800080;">0</span><span style="color: #000000;">;
 </span><span style="color: #008080;">32</span> <span style="color: #000000;">    }
-</span><span style="color: #008080;">33</span> }</pre>
-</div>
-</div>
-<div class="cnblogs_code" onclick="cnblogs_code_show('a3755f35-debc-4db5-9999-1bca8d193256')"><img id="code_img_closed_a3755f35-debc-4db5-9999-1bca8d193256" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" /><img id="code_img_opened_a3755f35-debc-4db5-9999-1bca8d193256" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('a3755f35-debc-4db5-9999-1bca8d193256',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" /><span class="cnblogs_code_collapse">测量子元素布局期望尺寸及数据项实例化</span>
-<div id="cnblogs_code_open_a3755f35-debc-4db5-9999-1bca8d193256" class="cnblogs_code_hide">
-<pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
+</span><span style="color: #008080;">33</span> }</pre> </div> </div> <div class="cnblogs_code" onclick="cnblogs_code_show('a3755f35-debc-4db5-9999-1bca8d193256')"><img id="code_img_closed_a3755f35-debc-4db5-9999-1bca8d193256" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""/><img id="code_img_opened_a3755f35-debc-4db5-9999-1bca8d193256" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('a3755f35-debc-4db5-9999-1bca8d193256',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""/><span class="cnblogs_code_collapse">测量子元素布局期望尺寸及数据项实例化</span> <div id="cnblogs_code_open_a3755f35-debc-4db5-9999-1bca8d193256" class="cnblogs_code_hide"> <pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
 <span style="color: #008080;"> 2</span> <span style="color: #808080;">///</span><span style="color: #008000;"> 测量子元素布局,生成需要显示的子元素
 </span><span style="color: #008080;"> 3</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;/summary&gt;</span>
 <span style="color: #008080;"> 4</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;param name="availableSize"&gt;</span><span style="color: #008000;">可用布局尺寸</span><span style="color: #808080;">&lt;/param&gt;</span>
@@ -422,12 +161,7 @@
 <span style="color: #008080;">47</span> <span style="color: #000000;">            child.Measure(availableSize);
 </span><span style="color: #008080;">48</span> <span style="color: #000000;">        }
 </span><span style="color: #008080;">49</span> <span style="color: #000000;">    }
-</span><span style="color: #008080;">50</span> }</pre>
-</div>
-</div>
-<div class="cnblogs_code" onclick="cnblogs_code_show('25d338df-4f94-467c-af16-200c0da23377')"><img id="code_img_closed_25d338df-4f94-467c-af16-200c0da23377" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" /><img id="code_img_opened_25d338df-4f94-467c-af16-200c0da23377" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('25d338df-4f94-467c-af16-200c0da23377',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt="" /><span class="cnblogs_code_collapse">清理不再显示的子元素</span>
-<div id="cnblogs_code_open_25d338df-4f94-467c-af16-200c0da23377" class="cnblogs_code_hide">
-<pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
+</span><span style="color: #008080;">50</span> }</pre> </div> </div> <div class="cnblogs_code" onclick="cnblogs_code_show('25d338df-4f94-467c-af16-200c0da23377')"><img id="code_img_closed_25d338df-4f94-467c-af16-200c0da23377" class="code_img_closed" src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt=""/><img id="code_img_opened_25d338df-4f94-467c-af16-200c0da23377" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide('25d338df-4f94-467c-af16-200c0da23377',event)" src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" alt=""/><span class="cnblogs_code_collapse">清理不再显示的子元素</span> <div id="cnblogs_code_open_25d338df-4f94-467c-af16-200c0da23377" class="cnblogs_code_hide"> <pre><span style="color: #008080;"> 1</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
 <span style="color: #008080;"> 2</span> <span style="color: #808080;">///</span><span style="color: #008000;"> 清理不需要显示的子元素
 </span><span style="color: #008080;"> 3</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;/summary&gt;</span>
 <span style="color: #008080;"> 4</span> <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;param name="firstVisibleChildIndex"&gt;</span><span style="color: #008000;">第一个显示的子元素索引</span><span style="color: #808080;">&lt;/param&gt;</span>
@@ -451,221 +185,4 @@
 </span><span style="color: #008080;">22</span>             RemoveInternalChildRange(i, <span style="color: #800080;">1</span><span style="color: #000000;">);
 </span><span style="color: #008080;">23</span> <span style="color: #000000;">        }
 </span><span style="color: #008080;">24</span> <span style="color: #000000;">    }
-</span><span style="color: #008080;">25</span> }</pre>
-</div>
-</div>
-<p>&nbsp;</p>
-<p>参考文章:</p>
-<p><a href="http://blogs.msdn.com/b/dancre/archive/2006/02/06/526310.aspx">http://blogs.msdn.com/b/dancre/archive/2006/02/06/526310.aspx</a> (写的非常好)</p>
-<p>&nbsp;</p>
-<p>附上<a href="/assets/attach/talywy/VirtualizingPanelDemot.zip">源代码</a></p>
-<p>&nbsp;</p>
-<p><strong>版权说明：</strong><strong>本文章版权归本人及博客园共同所有，未经允许请勿用于任何商业用途。转载请标明原文出处:</strong></p>
-<p><strong><a id="Editor_Edit_hlEntryLink" title="view: WPF中实现自定义虚拟容器(实现VirtualizingPanel)" href="http://www.cnblogs.com/talywy/archive/2012/09/07/CustomVirtualizingPanel.html" target="_blank">http://www.cnblogs.com/talywy/archive/2012/09/07/CustomVirtualizingPanel.html</a><span>&nbsp;</span>。</strong></p>
-
-                        </div>
-                </div><!-- entry-content -->
-            </div><!-- bd -->
-            <footer class="unit-foot">
-                <div class="unit-inner unit-foot-inner">
-                    <div class="gotop">
-                        <a class="internal" href="#page">Back to Top</a>
-                        <!-- AddThis Button BEGIN -->
-                        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-                            <a class="addthis_button_email"></a>
-                            <a class="addthis_button_facebook"></a>
-                            <a class="addthis_button_google_plusone_share"></a>
-                            <a class="addthis_button_reddit"></a>
-                            <a class="addthis_button_twitter"></a>
-                        </div>
-                        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
-                        <!-- AddThis Button END -->
-                    </div>
-                    <nav class="pagination">
-                        
-                        
-                            <a class="internal" data-ga="Next Post" rel="next" href="/2012/10/09/selectable-listbox" title="View '可框选的ListBox'">可框选的ListBox → </a>
-                        
-                    </nav>
-                </div>
-            </footer>
-            <div class="misc-content">
-                <div class="comment">
-                    <button class="center-block show-hidden" data-ga="Show Comments" data-disqus-url="http://yuwang.tech/2012/09/07/wpf-custom-virtualizing-panel/">Show Comments</button>
-                    <div id="disqus_thread"></div>
-                </div>
-            </div><!-- misc-content -->
-        </div><!-- content -->
-    </div><!-- unit-inner -->
-</article>
-
-
-                    </div>
-                </div><!-- unit-inner -->
-            </div><!-- unit-body -->
-        </div><!-- body -->
-
-        <footer class="the-footer">
-            <div class="unit-foot">
-                <div class="unit-inner unit-foot-inner">
-                    <div class="misc vcard">
-                        <div class="about">
-                            <h4><a href="/#about">About</a></h4>
-                            
-                                <p>
-                                    <span class="fn p-name">Yu Wang</span>,
-                                    <span class="p-job-title">Software Engineer</span>
-                                    <span> based in </span>
-                                    <span class="adr h-adr p-adr">
-                                        <abbr class="locality p-locality">HeiFei, AnHui </abbr>, 
-                                        <abbr class="country-name p-country-name">China</abbr>.
-                                    </span>
-                                </p>
-                                <p><a href="https://github.com/yizeng/yizeng.me#license" target="_blank">License</a> &amp; <a href="https://github.com/yizeng/yizeng.me/wiki/Acknowledgements" target="_blank">Acknowledgements</a></p>
-                            
-                            
-                        </div>
-                        <div class="social-links">
-                            <a class="ico-linkedin" href="https://www.linkedin.com/in/talywy" rel="me" target="_blank" title="LinkedIn Profile"></a>
-                            <a class="ico-github" href="http://github.com/talywy/" rel="me" target="_blank" title="GitHub Page"></a>
-                            <a class="ico-gmail" href="mailto:taly.w.y@gmail.com" rel="me" target="_blank" title="Email Address"></a>
-                            <a class="ico-facebook" href="https://www.facebook.com/taly.w.y" rel="me" target="_blank" title="Facebook"></a>
-                            <!--<a class="ico-stackoverflow" href="http://stackoverflow.com/users/" rel="me" target="_blank" title="StackOverflow Profile"></a>-->
-                            <a class="ico-rss" href="/rss.xml" rel="me" target="_blank" title="RSS Feeds"></a>
-                        </div>
-                    </div><!-- misc -->
-                </div><!-- unit-foot-inner -->
-            </div><!-- unit-foot -->
-            <a href="#" class="internal back-to-top">Back to Top</a>
-        </footer>
-    </div><!-- page -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/assets/js/jquery-1.11.0.min.js"><\/script>')</script>
-
-<!-- Loading progess bar plugin -->
-<!--[if !IE]> -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/pace/0.4.17/pace.min.js"></script>
-	<script>window.Pace || document.write('<script src="/assets/js/pace.min.js"><\/script>')</script>
-<!-- <![endif]-->
-
-<script>
-	$(document).ready(function () {
-		var offset = 50, duration = 500, width = 960;
-		$(window).scroll(function () {
-			if ($(window).width() > width) {
-				if ($(this).scrollTop() > offset) {
-					$('footer').css('top', '20px');
-					$('footer .back-to-top').fadeIn(duration);
-				} else {
-					$('footer').css('top', 'auto');
-					$('footer .back-to-top').fadeOut(duration);
-				}
-			}
-		});
-		$(window).resize(function () {
-			if ($(window).width() < width) {
-				$('footer').css('top', 'auto');
-				$('footer .back-to-top').fadeOut(duration);
-			}
-			if ($(window).width() >= width && $(this).scrollTop() > offset) {
-				$('footer').css('top', '20px');
-				$('footer .back-to-top').fadeIn(duration);
-			}
-		});
-
-		$('footer .back-to-top').click(function (event) {
-			event.preventDefault();
-			$('html, body').animate({scrollTop: 0}, duration);
-			return false;
-		});
-	});
-</script>
-
-
-
-<!-- Show menu overlay + Jekyll Simple Search option -->
-<script src="/assets/js/jekyll-search.jquery.js"></script>
-<script>
-	$(document).ready(function() {
-		$('.search-field').simpleJekyllSearch({
-			jsonFile : '/search.json',
-			template : '<li><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></li>',
-			searchResults: '.search-wrapper .results',
-			searchResultsTitle : '<h4>Search results</h4>',
-			noResults : '<p>Oh shucks<br/><small>Nothing found :(</small></p>'
-		});
-	});
-
-	(function($, window, undefined) {
-		var closeOverlay = function() {
-			$('.nav-wrapper, .search-wrapper').removeAttr('style');
-			$(".nav-form, .search-form").removeClass('active');
-			$("body").removeClass('nav-overlay search-overlay');
-		};
-
-		$('.nav-global .btn-search').on('click', function() {
-			$('.search-wrapper').css({ display: "block" });
-			$(".search-form").addClass('active');
-			$(".search-form").find('input').focus();
-			$("body").addClass('search-overlay');
-		});
-
-		$('.nav-global .btn-menu').on('click', function() {
-			$('.nav-wrapper').css({ display: "block" });
-			$(".nav-form").addClass('active');
-			$(".nav-form .search-field").prop('disabled', true);
-			$("body").addClass('nav-overlay');
-		});
-
-		$('.nav-wrapper .btn-close, .search-wrapper .btn-close').on('click', function() {
-			closeOverlay();
-		});
-
-		$(document).on('keyup', function(e) {
-			if(e.keyCode === 27) {
-				closeOverlay();
-			}
-		});
-	})(jQuery, window);
-</script>
-
-
-
-
-<script>
-$(document).ready(function () {
-	var disqusPublicKey = "YPH1eKPOxomOQ3oYwjiDYWjb7RtoWdvgYrHmNH3xX23XsnfGFnNHl4JKKpa7CbH2";
-	var disqusShortname = "yuwang";
-	var threadUrl = 'link:' + $('.comment .show-hidden').attr('data-disqus-url');
-
-	$.ajax({
-		type: 'GET',
-		url: 'https://disqus.com/api/3.0/threads/set.jsonp',
-		data: { api_key: disqusPublicKey, forum: disqusShortname, thread: threadUrl },
-		cache: false,
-		dataType: 'jsonp',
-		success: function(result) {
-			if (result.response.length === 1) {
-				btnText = 'Show Comments (' + result.response[0].posts + ')';
-				$('.comment .show-hidden').html(btnText);
-			}
-		}
-	});
-
-	$('.comment .show-hidden').on('click', function() {
-		$.ajaxSetup({cache:true});
-		$.getScript('http://' + disqusShortname + '.disqus.com/embed.js');
-		$.ajaxSetup({cache:false});
-		$(this).remove();
-	});
-
-	if(/\#comment/.test(location.hash)){
-		$('.comment .show-hidden').trigger('click');
-	}
-});
-</script>
-
-
-</body>
-</html>
-
+</span><span style="color: #008080;">25</span> }</pre> </div> </div> <p>&nbsp;</p> <p>参考文章:</p> <p><a href="http://blogs.msdn.com/b/dancre/archive/2006/02/06/526310.aspx">http://blogs.msdn.com/b/dancre/archive/2006/02/06/526310.aspx</a> (写的非常好)</p> <p>&nbsp;</p> <p>附上<a href="/assets/attach/talywy/VirtualizingPanelDemot.zip">源代码</a></p> <p>&nbsp;</p> <p><strong>版权说明：</strong><strong>本文章版权归本人及博客园共同所有，未经允许请勿用于任何商业用途。转载请标明原文出处:</strong></p> <p><strong><a id="Editor_Edit_hlEntryLink" title="view: WPF中实现自定义虚拟容器(实现VirtualizingPanel)" href="http://www.cnblogs.com/talywy/archive/2012/09/07/CustomVirtualizingPanel.html" target="_blank">http://www.cnblogs.com/talywy/archive/2012/09/07/CustomVirtualizingPanel.html</a><span>&nbsp;</span>。</strong></p> </div> </div> </div> <footer class="unit-foot"> <div class="unit-inner unit-foot-inner"> <div class="gotop"> <a class="internal" href="#page">Back to Top</a> <div class="addthis_toolbox addthis_default_style addthis_32x32_style"> <a class="addthis_button_email"></a> <a class="addthis_button_facebook"></a> <a class="addthis_button_google_plusone_share"></a> <a class="addthis_button_reddit"></a> <a class="addthis_button_twitter"></a> </div> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script> </div> <nav class="pagination"> <a class="internal" data-ga="Next Post" rel="next" href="/2012/10/09/selectable-listbox" title="View '可框选的ListBox'">可框选的ListBox → </a> </nav> </div> </footer> <div class="misc-content"> <div class="comment"> <button class="center-block show-hidden" data-ga="Show Comments" data-disqus-url="http://yuwang.tech/2012/09/07/wpf-custom-virtualizing-panel/">Show Comments</button> <div id="disqus_thread"></div> </div> </div> </div> </div> </article> </div> </div> </div> </div> <footer class="the-footer"> <div class="unit-foot"> <div class="unit-inner unit-foot-inner"> <div class="misc vcard"> <div class="about"> <h4><a href="/#about">About</a></h4> <p> <span class="fn p-name">Yu Wang</span>, <span class="p-job-title">Software Engineer</span> <span> based in </span> <span class="adr h-adr p-adr"> <abbr class="locality p-locality">HeiFei, AnHui </abbr>, <abbr class="country-name p-country-name">China</abbr>. </span> </p> <p><a href="https://github.com/yizeng/yizeng.me#license" target="_blank">License</a> &amp; <a href="https://github.com/yizeng/yizeng.me/wiki/Acknowledgements" target="_blank">Acknowledgements</a></p> </div> <div class="social-links"> <a class="ico-linkedin" href="https://www.linkedin.com/in/talywy" rel="me" target="_blank" title="LinkedIn Profile"></a> <a class="ico-github" href="http://github.com/talywy/" rel="me" target="_blank" title="GitHub Page"></a> <a class="ico-gmail" href="mailto:taly.w.y@gmail.com" rel="me" target="_blank" title="Email Address"></a> <a class="ico-facebook" href="https://www.facebook.com/taly.w.y" rel="me" target="_blank" title="Facebook"></a> <a class="ico-rss" href="/rss.xml" rel="me" target="_blank" title="RSS Feeds"></a> </div> </div> </div> </div> <a href="#" class="internal back-to-top">Back to Top</a> </footer> </div> <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> <script>window.jQuery||document.write('<script src="/assets/js/jquery-1.11.0.min.js"><\/script>');</script> <!--[if !IE]>--> <script src="//cdnjs.cloudflare.com/ajax/libs/pace/0.4.17/pace.min.js"></script> <script>window.Pace||document.write('<script src="/assets/js/pace.min.js"><\/script>');</script> <!--<![endif]--> <script>$(document).ready(function(){var c=50,b=500,a=960;$(window).scroll(function(){if($(window).width()>a){if($(this).scrollTop()>c){$("footer").css("top","20px");$("footer .back-to-top").fadeIn(b)}else{$("footer").css("top","auto");$("footer .back-to-top").fadeOut(b)}}});$(window).resize(function(){if($(window).width()<a){$("footer").css("top","auto");$("footer .back-to-top").fadeOut(b)}if($(window).width()>=a&&$(this).scrollTop()>c){$("footer").css("top","20px");$("footer .back-to-top").fadeIn(b)}});$("footer .back-to-top").click(function(d){d.preventDefault();$("html, body").animate({scrollTop:0},b);return false})});</script> <script src="/assets/js/jekyll-search.jquery.js"></script> <script>$(document).ready(function(){$(".search-field").simpleJekyllSearch({jsonFile:"/search.json",template:'<li><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></li>',searchResults:".search-wrapper .results",searchResultsTitle:"<h4>Search results</h4>",noResults:"<p>Oh shucks<br/><small>Nothing found :(</small></p>"})});(function(c,b,d){var a=function(){c(".nav-wrapper, .search-wrapper").removeAttr("style");c(".nav-form, .search-form").removeClass("active");c("body").removeClass("nav-overlay search-overlay")};c(".nav-global .btn-search").on("click",function(){c(".search-wrapper").css({display:"block"});c(".search-form").addClass("active");c(".search-form").find("input").focus();c("body").addClass("search-overlay")});c(".nav-global .btn-menu").on("click",function(){c(".nav-wrapper").css({display:"block"});c(".nav-form").addClass("active");c(".nav-form .search-field").prop("disabled",true);c("body").addClass("nav-overlay")});c(".nav-wrapper .btn-close, .search-wrapper .btn-close").on("click",function(){a()});c(document).on("keyup",function(f){if(f.keyCode===27){a()}})})(jQuery,window);</script> <script>$(document).ready(function(){var b="YPH1eKPOxomOQ3oYwjiDYWjb7RtoWdvgYrHmNH3xX23XsnfGFnNHl4JKKpa7CbH2";var c="yuwang";var a="link:"+$(".comment .show-hidden").attr("data-disqus-url");$.ajax({type:"GET",url:"https://disqus.com/api/3.0/threads/set.jsonp",data:{api_key:b,forum:c,thread:a},cache:false,dataType:"jsonp",success:function(d){if(d.response.length===1){btnText="Show Comments ("+d.response[0].posts+")";$(".comment .show-hidden").html(btnText)}}});$(".comment .show-hidden").on("click",function(){$.ajaxSetup({cache:true});$.getScript("http://"+c+".disqus.com/embed.js");$.ajaxSetup({cache:false});$(this).remove()});if(/\#comment/.test(location.hash)){$(".comment .show-hidden").trigger("click")}});</script> </body> </html>
