@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="Yu Wang">
+    <meta name="description" content="Personal blog for YuWang, a software engineer based in HeiFei,AnHui,China." />
+    <meta name="keywords" content="yuwang,WPF" />
+    
+
+    <title>可框选的ListBox - YuWang</title>
+
+    <link href='/assets/css/blog-style.css' rel="stylesheet" type="text/css">
+    <link href="/rss.xml" rel="alternate" title="YuWang" type="application/rss+xml">
+
+    <!--[if IE]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+        <script>window.Modernizr || document.write('<script src="/assets/js/modernizr-2.0.6.min.js"><\/script>')</script>
+    <![endif]-->
+    <!--[if !IE]> -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+        <script>window.Modernizr || document.write('<script src="/assets/js/modernizr-2.6.2.min.js"><\/script>')</script>
+    <!-- <![endif]-->
+    
+
+    <script>
+        if (!navigator.userAgent.match(/.*(Pingdom|PhantomJS|StatusCake).*/gi)) {
+            
+                    var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?1096ce63809d64d11df8da9b7c7d3ca9";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+            
+        }
+        (function(f,b,g){
+    var xo=g.prototype.open,xs=g.prototype.send,c;
+    f.hj=f.hj||function(){(f.hj.q=f.hj.q||[]).push(arguments)};
+    f._hjSettings={hjid:12350, hjsv:2};
+    function ls(){f.hj.documentHtml=b.documentElement.outerHTML;c=b.createElement("script");c.async=1;c.src="//static.hotjar.com/c/hotjar-12350.js?sv=2";b.getElementsByTagName("head")[0].appendChild(c);}
+    if(b.readyState==="interactive"||b.readyState==="complete"||b.readyState==="loaded"){ls();}else{if(b.addEventListener){b.addEventListener("DOMContentLoaded",ls,false);}}
+    if(!f._hjPlayback && b.addEventListener){
+        g.prototype.open=function(l,j,m,h,k){this._u=j;xo.call(this,l,j,m,h,k)};
+        g.prototype.send=function(e){var j=this;function h(){if(j.readyState===4){f.hj("_xhr",j._u,j.status,j.response)}}this.addEventListener("readystatechange",h,false);xs.call(this,e)};
+    }
+})(window,document,window.XMLHttpRequest);
+
+    </script>
+
+
+</head>
+
+<body>
+    <!--[if IE]>
+        <p class="site-notice">You are using an outdated browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true" target="_blank">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+    <noscript>
+        <p class="site-notice">This site requires JavaScript. Here are the instructions <a href="http://www.enable-javascript.com/" target="_blank">how to enable JavaScript in your web browser</a>.</p>
+    </noscript>
+
+    <div class="nav-wrapper">
+        <div class="nav-form">
+            <span class="overlay-header menu">Menu</span>
+            <a class="btn-close">Close</a>
+            <div class="results">
+                <a href="/archives">Archives</a>
+                <a href="/categories/#articles">Articles</a>
+                <a href="/categories/#notes">Notes</a>
+                <a href="/categories">Categories</a>
+                <a href="/tags">Tags</a>
+                <a href="/">About</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-wrapper">
+        <div class="search-form">
+            <input type="text" class="overlay-header search-field" placeholder="Search...">
+            <a class="btn-close">Close</a>
+            <ul class="results"></ul>
+        </div>
+    </div>
+
+    <div id="page" class="hentry">
+        <header class="the-header">
+            <div class="unit-head">
+                <div class="unit-inner unit-head-inner">
+                    <nav class="nav-global">
+                        <ul>
+                            <li class="logo nav-link">
+                                <button class="btn-menu" data-ga="Menu"></button>
+                                <a href="/blog">YuWang</a>
+                                <!--[if !IE]> --><button class="btn-search" data-ga="Search"></button><!-- <![endif]-->
+                            </li>
+                            <li class="nav-link"><a data-ga="Archives" href="/archives">Archives</a></li>
+                            <li class="nav-link"><a data-ga="Articles" href="/categories#articles">Articles</a></li>
+                            <li class="nav-link"><a data-ga="Notes" href="/categories#notes">Notes</a></li>
+                            <li class="nav-link"><a data-ga="Categories" href="/categories">Categories</a></li>
+                            <li class="nav-link"><a data-ga="Tags" href="/tags">Tags</a></li>
+                            <!--[if !IE]> --><li class="nav-link"><a data-ga="Search" class="btn-search" href="#">Search</a></li><!-- <![endif]-->
+                        </ul>
+                    </nav>
+                </div><!-- unit-inner -->
+            </div><!-- unit-head -->
+        </header>
+
+        <div class="body animated fadeInDown" role="main">
+            <div class="unit-body">
+                <div class="unit-inner unit-body-inner">
+                    <div class="entry-content">
+                        
+<article class="unit-article layout-post">
+    <div class="unit-inner unit-article-inner">
+        <div itemscope itemtype="http://schema.org/Article" class="content">
+            <header>
+                <div class="unit-head">
+                    <div class="unit-inner unit-head-inner">
+                        <h1 itemprop="name" class="entry-title">可框选的ListBox</h1>
+                    </div><!-- unit-inner -->
+                </div><!-- unit-head -->
+            </header>
+            <div class="bd">
+                <div class="entry-content">
+                        <div class="meta">
+                            <p class="date-publish">
+                               Published: <time itemprop="datePublished" class="date-pub updated" title="2012-10-09T00:00:00+08:00" datetime="2012-10-09T00:00:00+08:00">October 09, 2012 </time> by 
+                                <a class="author" href="/" rel="author"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yu Wang</span></span></a>
+                                <a class="license image-link" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+                                    <img alt="Creative Commons Licence" style="border-width:0" src="/assets/images/cc-by-sa.png"  height="16" width="80"/>
+                                </a>
+                                
+                            </p>
+                            <ul class="list-category list-linear">
+                                <li class="list-head">Categories: </li>
+                                
+                                
+
+
+    
+        
+    
+
+
+                            </ul>
+                            <ul class="list-tag list-linear">
+                                <li class="list-head">Tags: </li>
+                                
+                                
+
+
+    
+        
+            
+            <li>
+                <a data-ga="WPF" href="/tags/#WPF" title="WPF">WPF <span>2</span></a>
+            </li>
+        
+    
+
+
+
+                            </ul>
+                        </div><!-- meta -->
+                        <div itemprop="articleBody">
+                            <p>30px;"&gt;<span style="font-family: 微软雅黑; font-size: medium;">最近项目当中遇到一个需要有数据条目框选功能的ListBox，写了一个简单的Demo。效果如下：</span>&lt;/p&gt;</p>
+<div id="scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:24421259-7eb1-42d9-8a5c-c7de0746ffa6" class="wlWriterEditableSmartContent" style="margin: 0px; display: block; padding: 0px;"><a title="DragSelectListBox" href="/assets/images/posts/cnblogs_com/talywy/201210/201210092306044624.png" rel="thumbnail"><img src="/assets/images/posts/cnblogs_com/talywy/201210/201210092306053064.png" alt="" width="420" height="331" border="0" /></a></div>
+<p style="text-indent: 30px;"><span style="font-size: medium;"><span style="font-family: 微软雅黑;">要想实现这样的效果主要要实现以下两点：</span></span></p>
+<p style="text-indent: 30px;"><strong><span style="font-size: medium;"><span style="font-family: 微软雅黑;">1、选择框的绘制</span></span></strong></p>
+<p style="text-indent: 30px;"><strong><span style="font-size: medium;"><span style="font-family: 微软雅黑;">2、绘制过程中计算与选择框相交的Item。</span></span></strong></p>
+<p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">矩形选择框的绘制，实现原理比较简单，按照下面的方式定义ListBox的模板，这样可以在Thumb的DragDelta事件中方便的计算出拖动时矩形选择框的位置和大小信息进行绘制。</span></p>
+<p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">ListBox模板内容：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Grid</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;"> 2</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Thumb </span><span style="color: #ff0000;">Name</span><span style="color: #0000ff;">="PART_DragThumb"</span><span style="color: #ff0000;"> Template</span><span style="color: #0000ff;">="</span><span style="color: #808000;">{StaticResource DragThumbTemplate}</span><span style="color: #0000ff;">"</span> <span style="color: #0000ff;">/&gt;</span>
+<span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">WrapPanel </span><span style="color: #ff0000;">IsItemsHost</span><span style="color: #0000ff;">="True"</span><span style="color: #ff0000;"> Orientation</span><span style="color: #0000ff;">="Horizontal"</span> <span style="color: #0000ff;">/&gt;</span>
+<span style="color: #008080;"> 4</span>     <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Canvas </span><span style="color: #ff0000;">Name</span><span style="color: #0000ff;">="PanelParent"</span><span style="color: #ff0000;"> ClipToBounds</span><span style="color: #0000ff;">="True"</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;"> 5</span>         <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Rectangle </span><span style="color: #ff0000;">Name</span><span style="color: #0000ff;">="PART_SelectArea"</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #ff0000;">                   Width</span><span style="color: #0000ff;">="0"</span><span style="color: #ff0000;"> Height</span><span style="color: #0000ff;">="0"</span>
+<span style="color: #008080;"> 7</span> <span style="color: #ff0000;">                   Fill</span><span style="color: #0000ff;">="#6ca3a3a3"</span><span style="color: #ff0000;"> Stroke</span><span style="color: #0000ff;">="LightBlue"</span>
+<span style="color: #008080;"> 8</span> <span style="color: #ff0000;">                   StrokeThickness</span><span style="color: #0000ff;">="1"</span> <span style="color: #0000ff;">/&gt;</span>
+<span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">Canvas</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;">10</span> <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">Grid</span><span style="color: #0000ff;">&gt;</span></pre>
+</div>
+<p style="text-indent: 30px;">&nbsp;<span style="font-family: 微软雅黑; font-size: medium;">DragDelta事件：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span>  <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;summary&gt;</span>
+<span style="color: #008080;"> 2</span>  <span style="color: #808080;">///</span><span style="color: #008000;"> 拖拽
+</span><span style="color: #008080;"> 3</span>  <span style="color: #808080;">///</span> <span style="color: #808080;">&lt;/summary&gt;</span>
+<span style="color: #008080;"> 4</span>  <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> ThumbDragDelta(<span style="color: #0000ff;">object</span><span style="color: #000000;"> sender, DragDeltaEventArgs e)
+</span><span style="color: #008080;"> 5</span> <span style="color: #000000;"> {
+</span><span style="color: #008080;"> 6</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> 绘制选择框</span>
+<span style="color: #008080;"> 7</span>      <span style="color: #0000ff;">if</span> (e.HorizontalChange &lt; <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;"> 8</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 9</span>          <span style="color: #0000ff;">var</span> right = Canvas.GetLeft(_selectArea) +<span style="color: #000000;"> _selectArea.Width;
+</span><span style="color: #008080;">10</span>          Canvas.SetLeft(_selectArea, right +<span style="color: #000000;"> e.HorizontalChange);
+</span><span style="color: #008080;">11</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">12</span> 
+<span style="color: #008080;">13</span>      <span style="color: #0000ff;">if</span> (e.VerticalChange &lt; <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">14</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">15</span>          <span style="color: #0000ff;">var</span> bottom = Canvas.GetTop(_selectArea) +<span style="color: #000000;"> _selectArea.Height;
+</span><span style="color: #008080;">16</span>          Canvas.SetTop(_selectArea, bottom +<span style="color: #000000;"> e.VerticalChange);
+</span><span style="color: #008080;">17</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">18</span> 
+<span style="color: #008080;">19</span>      _selectArea.Width =<span style="color: #000000;"> Math.Abs(e.HorizontalChange);
+</span><span style="color: #008080;">20</span>      _selectArea.Height =<span style="color: #000000;"> Math.Abs(e.VerticalChange);
+</span><span style="color: #008080;">21</span>  }</pre>
+</div>
+<p style="text-indent: 30px;">&nbsp;<span style="font-family: 微软雅黑; font-size: medium;">每当绘制矩形框后，需要计算出哪些数据项和所绘制的矩形框相交，并将与选择框区域相交的数据项容器附加属性IsDragSelected为true，之后再利用该属性在ListBox的ItemContainerStyle中使用触发器实现选中效果即可，代码如下：</span>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span>   <span style="color: #008000;">//</span><span style="color: #008000;"> 选择框区域信息</span>
+<span style="color: #008080;"> 2</span>   <span style="color: #0000ff;">var</span> selectAreaLocation = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Point(Canvas.GetLeft(_selectArea), Canvas.GetTop(_selectArea));
+</span><span style="color: #008080;"> 3</span>   <span style="color: #0000ff;">var</span> selectAreaSize = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Size(_selectArea.Width, _selectArea.Height);
+</span><span style="color: #008080;"> 4</span>   <span style="color: #0000ff;">var</span> selectRect = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Rect(selectAreaLocation, selectAreaSize);
+</span><span style="color: #008080;"> 5</span>   Debug.WriteLine(<span style="color: #800000;">"</span><span style="color: #800000;">selectRect:{0}</span><span style="color: #800000;">"</span><span style="color: #000000;">, selectRect);
+</span><span style="color: #008080;"> 6</span> 
+<span style="color: #008080;"> 7</span>   <span style="color: #0000ff;">foreach</span> (<span style="color: #0000ff;">var</span> item <span style="color: #0000ff;">in</span> <span style="color: #0000ff;">this</span><span style="color: #000000;">.Items)
+</span><span style="color: #008080;"> 8</span> <span style="color: #000000;">  {
+</span><span style="color: #008080;"> 9</span>       <span style="color: #0000ff;">var</span> container = <span style="color: #0000ff;">this</span>.ItemContainerGenerator.ContainerFromItem(item) <span style="color: #0000ff;">as</span><span style="color: #000000;"> ContentControl;
+</span><span style="color: #008080;">10</span>       <span style="color: #0000ff;">if</span> (container != <span style="color: #0000ff;">null</span><span style="color: #000000;">)
+</span><span style="color: #008080;">11</span> <span style="color: #000000;">      {
+</span><span style="color: #008080;">12</span>           <span style="color: #0000ff;">var</span> transform = container.TransformToAncestor(<span style="color: #0000ff;">this</span><span style="color: #000000;">);
+</span><span style="color: #008080;">13</span>           <span style="color: #0000ff;">var</span> location = transform.Transform(<span style="color: #0000ff;">new</span><span style="color: #000000;"> Point());
+</span><span style="color: #008080;">14</span> 
+<span style="color: #008080;">15</span>           <span style="color: #008000;">//</span><span style="color: #008000;"> 数据项容器区域信息</span>
+<span style="color: #008080;">16</span>           <span style="color: #0000ff;">var</span> containerRect = <span style="color: #0000ff;">new</span> Rect(location, <span style="color: #0000ff;">new</span><span style="color: #000000;"> Size(container.ActualWidth, container.ActualHeight));
+</span><span style="color: #008080;">17</span>           Debug.WriteLine(<span style="color: #800000;">"</span><span style="color: #800000;">containerRect:{0}</span><span style="color: #800000;">"</span><span style="color: #000000;">, containerRect);
+</span><span style="color: #008080;">18</span> <span style="color: #000000;">          SetIsDragSelected(container, selectRect.IntersectsWith(containerRect));
+</span><span style="color: #008080;">19</span>       }</pre>
+</div>
+<p style="text-indent: 30px;">&nbsp;<span style="font-family: 微软雅黑; font-size: medium;">上面之所以没有直接设置数据项容器的IsSelected属性，是因为不想将框选和ListBox默认的选择混在一起，Demo中在Thumb的DragCompleted事件里找出IsDragSelected附加属性为true的数据项，并将这些数据用事件参数向外抛出，具体的操作放在事件中。</span></p>
+<p style="text-indent: 30px;"><span style="font-family: 微软雅黑; font-size: medium;">PS：最后，由于DragSelectListBox中各个数据项容器间的间距较小，导致框选触发不易实现，所以需要在ItemTemplate中做下处理，方法如下：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span>  <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">DataTemplate</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;"> 2</span>      <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Grid</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;"> 3</span>          <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Border </span><span style="color: #ff0000;">IsHitTestVisible</span><span style="color: #0000ff;">="False"</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #ff0000;">                 BorderBrush</span><span style="color: #0000ff;">="LightBlue"</span><span style="color: #ff0000;"> BorderThickness</span><span style="color: #0000ff;">="1"</span> 
+<span style="color: #008080;"> 5</span> <span style="color: #ff0000;">                 Width</span><span style="color: #0000ff;">="50"</span><span style="color: #ff0000;"> Height</span><span style="color: #0000ff;">="50"</span><span style="color: #ff0000;"> Background</span><span style="color: #0000ff;">="AliceBlue"</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;"> 6</span>              <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">TextBlock </span><span style="color: #ff0000;">Text</span><span style="color: #0000ff;">="</span><span style="color: #808000;">{Binding}</span><span style="color: #0000ff;">"</span><span style="color: #ff0000;"> HorizontalAlignment</span><span style="color: #0000ff;">="Center"</span><span style="color: #ff0000;"> VerticalAlignment</span><span style="color: #0000ff;">="Center"</span><span style="color: #0000ff;">/&gt;</span>
+<span style="color: #008080;"> 7</span>          <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">Border</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;"> 8</span>          <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Rectangle </span><span style="color: #ff0000;">Margin</span><span style="color: #0000ff;">="5"</span><span style="color: #ff0000;"> Fill</span><span style="color: #0000ff;">="Transparent"</span> <span style="color: #0000ff;">/&gt;</span>
+<span style="color: #008080;"> 9</span>      <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">Grid</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #008080;">10</span>  <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">DataTemplate</span><span style="color: #0000ff;">&gt;</span></pre>
+</div>
+<p style="text-indent: 30px;">&nbsp;<span style="font-family: 微软雅黑; font-size: medium;">第3行设置Border的IsHitTestVisible属性为False, 然后再放一个Margin为5的Rectangle，这样每个数据项容器边缘都会多出5像素的可触发框选区域，使框选更容易触发。</span></p>
+<p>附上<a href="/assets/attach/talywy/DragSelectTest.zip">源代码</a></p>
+<p><strong>版权说明：</strong><strong>本文章版权归本人及博客园共同所有，未经允许请勿用于任何商业用途。转载请标明原文出处:</strong></p>
+<p><strong><a href="http://www.cnblogs.com/talywy/archive/2012/10/09/DragSelectListBox.html"><span>http://www.cnblogs.com/talywy/archive/2012/10/09/DragSelectListBox.html&nbsp;</span></a>。</strong></p>
+
+                        </div>
+                </div><!-- entry-content -->
+            </div><!-- bd -->
+            <footer class="unit-foot">
+                <div class="unit-inner unit-foot-inner">
+                    <div class="gotop">
+                        <a class="internal" href="#page">Back to Top</a>
+                        <!-- AddThis Button BEGIN -->
+                        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                            <a class="addthis_button_email"></a>
+                            <a class="addthis_button_facebook"></a>
+                            <a class="addthis_button_google_plusone_share"></a>
+                            <a class="addthis_button_reddit"></a>
+                            <a class="addthis_button_twitter"></a>
+                        </div>
+                        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+                        <!-- AddThis Button END -->
+                    </div>
+                    <nav class="pagination">
+                        
+                            <a class="internal" data-ga="Previous Post" rel="prev" href="/2012/09/07/wpf-custom-virtualizing-panel" title="View 'WPF中实现自定义虚拟容器(实现VirtualizingPanel)'"> ← WPF中实现自定义虚拟容器(实现VirtualizingPanel)</a>
+                        
+                        
+                            <a class="internal" data-ga="Next Post" rel="next" href="/2012/11/01/silverlight-dynamic-load" title="View '完美实现Silverlight动态加载'">完美实现Silverlight动态加载 → </a>
+                        
+                    </nav>
+                </div>
+            </footer>
+            <div class="misc-content">
+                <div class="comment">
+                    <button class="center-block show-hidden" data-ga="Show Comments" data-disqus-url="http://yuwang.tech/2012/10/09/selectable-listbox/">Show Comments</button>
+                    <div id="disqus_thread"></div>
+                </div>
+            </div><!-- misc-content -->
+        </div><!-- content -->
+    </div><!-- unit-inner -->
+</article>
+
+
+                    </div>
+                </div><!-- unit-inner -->
+            </div><!-- unit-body -->
+        </div><!-- body -->
+
+        <footer class="the-footer">
+            <div class="unit-foot">
+                <div class="unit-inner unit-foot-inner">
+                    <div class="misc vcard">
+                        <div class="about">
+                            <h4><a href="/#about">About</a></h4>
+                            
+                                <p>
+                                    <span class="fn p-name">Yu Wang</span>,
+                                    <span class="p-job-title">Software Engineer</span>
+                                    <span> based in </span>
+                                    <span class="adr h-adr p-adr">
+                                        <abbr class="locality p-locality">HeiFei, AnHui </abbr>, 
+                                        <abbr class="country-name p-country-name">China</abbr>.
+                                    </span>
+                                </p>
+                                <p><a href="https://github.com/yizeng/yizeng.me#license" target="_blank">License</a> &amp; <a href="https://github.com/yizeng/yizeng.me/wiki/Acknowledgements" target="_blank">Acknowledgements</a></p>
+                            
+                            
+                        </div>
+                        <div class="social-links">
+                            <a class="ico-linkedin" href="https://www.linkedin.com/in/talywy" rel="me" target="_blank" title="LinkedIn Profile"></a>
+                            <a class="ico-github" href="http://github.com/talywy/" rel="me" target="_blank" title="GitHub Page"></a>
+                            <a class="ico-gmail" href="mailto:taly.w.y@gmail.com" rel="me" target="_blank" title="Email Address"></a>
+                            <a class="ico-facebook" href="https://www.facebook.com/taly.w.y" rel="me" target="_blank" title="Facebook"></a>
+                            <!--<a class="ico-stackoverflow" href="http://stackoverflow.com/users/" rel="me" target="_blank" title="StackOverflow Profile"></a>-->
+                            <a class="ico-rss" href="/rss.xml" rel="me" target="_blank" title="RSS Feeds"></a>
+                        </div>
+                    </div><!-- misc -->
+                </div><!-- unit-foot-inner -->
+            </div><!-- unit-foot -->
+            <a href="#" class="internal back-to-top">Back to Top</a>
+        </footer>
+    </div><!-- page -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/jquery-1.11.0.min.js"><\/script>')</script>
+
+<!-- Loading progess bar plugin -->
+<!--[if !IE]> -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/pace/0.4.17/pace.min.js"></script>
+	<script>window.Pace || document.write('<script src="/assets/js/pace.min.js"><\/script>')</script>
+<!-- <![endif]-->
+
+<script>
+	$(document).ready(function () {
+		var offset = 50, duration = 500, width = 960;
+		$(window).scroll(function () {
+			if ($(window).width() > width) {
+				if ($(this).scrollTop() > offset) {
+					$('footer').css('top', '20px');
+					$('footer .back-to-top').fadeIn(duration);
+				} else {
+					$('footer').css('top', 'auto');
+					$('footer .back-to-top').fadeOut(duration);
+				}
+			}
+		});
+		$(window).resize(function () {
+			if ($(window).width() < width) {
+				$('footer').css('top', 'auto');
+				$('footer .back-to-top').fadeOut(duration);
+			}
+			if ($(window).width() >= width && $(this).scrollTop() > offset) {
+				$('footer').css('top', '20px');
+				$('footer .back-to-top').fadeIn(duration);
+			}
+		});
+
+		$('footer .back-to-top').click(function (event) {
+			event.preventDefault();
+			$('html, body').animate({scrollTop: 0}, duration);
+			return false;
+		});
+	});
+</script>
+
+
+
+<!-- Show menu overlay + Jekyll Simple Search option -->
+<script src="/assets/js/jekyll-search.jquery.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.search-field').simpleJekyllSearch({
+			jsonFile : '/search.json',
+			template : '<li><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></li>',
+			searchResults: '.search-wrapper .results',
+			searchResultsTitle : '<h4>Search results</h4>',
+			noResults : '<p>Oh shucks<br/><small>Nothing found :(</small></p>'
+		});
+	});
+
+	(function($, window, undefined) {
+		var closeOverlay = function() {
+			$('.nav-wrapper, .search-wrapper').removeAttr('style');
+			$(".nav-form, .search-form").removeClass('active');
+			$("body").removeClass('nav-overlay search-overlay');
+		};
+
+		$('.nav-global .btn-search').on('click', function() {
+			$('.search-wrapper').css({ display: "block" });
+			$(".search-form").addClass('active');
+			$(".search-form").find('input').focus();
+			$("body").addClass('search-overlay');
+		});
+
+		$('.nav-global .btn-menu').on('click', function() {
+			$('.nav-wrapper').css({ display: "block" });
+			$(".nav-form").addClass('active');
+			$(".nav-form .search-field").prop('disabled', true);
+			$("body").addClass('nav-overlay');
+		});
+
+		$('.nav-wrapper .btn-close, .search-wrapper .btn-close').on('click', function() {
+			closeOverlay();
+		});
+
+		$(document).on('keyup', function(e) {
+			if(e.keyCode === 27) {
+				closeOverlay();
+			}
+		});
+	})(jQuery, window);
+</script>
+
+
+
+
+<script>
+$(document).ready(function () {
+	var disqusPublicKey = "YPH1eKPOxomOQ3oYwjiDYWjb7RtoWdvgYrHmNH3xX23XsnfGFnNHl4JKKpa7CbH2";
+	var disqusShortname = "yuwang";
+	var threadUrl = 'link:' + $('.comment .show-hidden').attr('data-disqus-url');
+
+	$.ajax({
+		type: 'GET',
+		url: 'https://disqus.com/api/3.0/threads/set.jsonp',
+		data: { api_key: disqusPublicKey, forum: disqusShortname, thread: threadUrl },
+		cache: false,
+		dataType: 'jsonp',
+		success: function(result) {
+			if (result.response.length === 1) {
+				btnText = 'Show Comments (' + result.response[0].posts + ')';
+				$('.comment .show-hidden').html(btnText);
+			}
+		}
+	});
+
+	$('.comment .show-hidden').on('click', function() {
+		$.ajaxSetup({cache:true});
+		$.getScript('http://' + disqusShortname + '.disqus.com/embed.js');
+		$.ajaxSetup({cache:false});
+		$(this).remove();
+	});
+
+	if(/\#comment/.test(location.hash)){
+		$('.comment .show-hidden').trigger('click');
+	}
+});
+</script>
+
+
+</body>
+</html>
+
