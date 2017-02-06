@@ -1,13 +1,6 @@
 [
 	
 		{
-		  "title"      : "new post",
-		  "url"        : "/2017/01/19/new-post",
-		  "date"       : "2017-01-19 00:00:00 +0800",
-		  "shortdate"  : "January 19, 2017"
-		} ,
-	
-		{
 		  "title"      : "Begin ElasticSearch With Chinese",
 		  "url"        : "/2017/01/17/begin-es-in-chinese",
 		  "date"       : "2017-01-17 00:00:00 +0800",

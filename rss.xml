@@ -5,19 +5,10 @@
         <description>Yu Wang</description>
         <atom:link href="http://yuwang.tech/rss.xml" rel="self" type="application/rss+xml" />
         <link>http://yuwang.tech</link>
-        <lastBuildDate>Mon, 06 Feb 2017 17:50:06 +0800</lastBuildDate>
-        <pubDate>Mon, 06 Feb 2017 17:50:06 +0800</pubDate>
+        <lastBuildDate>Mon, 06 Feb 2017 18:52:17 +0800</lastBuildDate>
+        <pubDate>Mon, 06 Feb 2017 18:52:17 +0800</pubDate>
         <ttl>1800</ttl>
 
-        
-            <item>
-                    <title>new post</title>
-                    <description>
-</description>
-                    <link>http://yuwang.tech/2017/01/19/new-post</link>
-                    <guid>http://yuwang.tech/2017/01/19/new-post</guid>
-                    <pubDate>Thu, 19 Jan 2017 00:00:00 +0800</pubDate>
-            </item>
         
             <item>
                     <title>Begin ElasticSearch With Chinese</title>
