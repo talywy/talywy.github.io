@@ -5,8 +5,8 @@
         <description>Yu Wang</description>
         <atom:link href="http://yuwang.tech/rss.xml" rel="self" type="application/rss+xml" />
         <link>http://yuwang.tech</link>
-        <lastBuildDate>Thu, 06 Apr 2017 23:06:06 +0800</lastBuildDate>
-        <pubDate>Thu, 06 Apr 2017 23:06:06 +0800</pubDate>
+        <lastBuildDate>Thu, 06 Apr 2017 23:20:48 +0800</lastBuildDate>
+        <pubDate>Thu, 06 Apr 2017 23:20:48 +0800</pubDate>
         <ttl>1800</ttl>
 
         
@@ -196,8 +196,12 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 
 &lt;ul&gt;
   &lt;li&gt;修改配置文件&lt;/li&gt;
-  &lt;li&gt;vi conf/jvm.options中的-Xms与-Xmx（默认是2G）
- &lt;img src=&quot;/assets/images/posts/begin_es/es_config.png&quot; alt=&quot;head plugin&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;vi conf/jvm.options中的-Xms与-Xmx（默认是2G）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/begin_es/es_config.png&quot; alt=&quot;head plugin&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;修改conf/jvm.options及bin/elasticsearch文件的编码为UTF8&lt;/strong&gt;（vim中使用&lt;code class=&quot;highlighter-rouge&quot;&gt;:set ff?&lt;/code&gt;查看文件格式，如果出现fileforma＝dos则说明文件编码格式不对，可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;:set fileformat=unix&lt;/code&gt;来修改文件的编码为正确格式）&lt;/li&gt;
   &lt;li&gt;启动 &lt;strong&gt;注意&lt;/strong&gt;: 使用非root账号来启动&lt;/li&gt;
 &lt;/ul&gt;
