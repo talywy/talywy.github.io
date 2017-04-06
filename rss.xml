@@ -5,10 +5,142 @@
         <description>Yu Wang</description>
         <atom:link href="http://yuwang.tech/rss.xml" rel="self" type="application/rss+xml" />
         <link>http://yuwang.tech</link>
-        <lastBuildDate>Thu, 06 Apr 2017 20:16:58 +0800</lastBuildDate>
-        <pubDate>Thu, 06 Apr 2017 20:16:58 +0800</pubDate>
+        <lastBuildDate>Thu, 06 Apr 2017 23:06:06 +0800</lastBuildDate>
+        <pubDate>Thu, 06 Apr 2017 23:06:06 +0800</pubDate>
         <ttl>1800</ttl>
 
+        
+            <item>
+                    <title>ElasticSearch Cluster</title>
+                    <description>&lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#intro&quot; id=&quot;markdown-toc-intro&quot;&gt;0x01 序&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#install&quot; id=&quot;markdown-toc-install&quot;&gt;0x02 安装&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#env&quot; id=&quot;markdown-toc-env&quot;&gt;本文使用的环境说明及依赖&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#setup&quot; id=&quot;markdown-toc-setup&quot;&gt;安装步骤&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#env&quot; id=&quot;markdown-toc-env&quot;&gt;系统环境设置&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#es-config&quot; id=&quot;markdown-toc-es-config&quot;&gt;es配置&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#es-start&quot; id=&quot;markdown-toc-es-start&quot;&gt;启动集群&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;intro&quot;&gt;0x01 序&lt;/h1&gt;
+&lt;p&gt;记录ElasticSearch集群搭建方式, 阅读本文以前，需要读者具备ES5.x版本的安装经验。如果不熟悉ES5.X版本的安装，可先参考&lt;a href=&quot;/2017/01/17/begin-es-in-chinese&quot;&gt;这篇文章&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h1 id=&quot;install&quot;&gt;0x02 安装&lt;/h1&gt;
+
+&lt;h2 id=&quot;env&quot;&gt;本文使用的环境说明及依赖&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;OS&lt;/strong&gt;： &lt;code class=&quot;highlighter-rouge&quot;&gt;CentOS release 6.8&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;git&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;1.7.1(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;2.7.0 (Windows 10)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;jre&lt;/strong&gt;: 1.8&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;es&lt;/strong&gt;: 5.0 rtf版&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;安装步骤&lt;/h2&gt;
+
+&lt;h3 id=&quot;env&quot;&gt;系统环境设置&lt;/h3&gt;
+&lt;p&gt;开启集群模式，es启动时会自动检查系统环境设置&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;打开文件数及线程数限制
+在/etc/security/limits.conf文件中增加&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*        soft   nproc  65536
+*        hard   nproc  65536
+*        soft   nofile  65536
+*        hard   nofile  65536
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;增加虚拟内存MAP空间数，
+在/etc/sysctl.conf文件中增加&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vm.max_map_count = 262144
+vm.swappiness = 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;关闭swap交换区
+&lt;strong&gt;临时关闭&lt;/strong&gt;：sudo swapoff -a
+&lt;strong&gt;永久关闭&lt;/strong&gt;：打开&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/fstab&lt;/code&gt;文件中包含&lt;code class=&quot;highlighter-rouge&quot;&gt;swap&lt;/code&gt;关键字的行注释&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;es-config&quot;&gt;es配置&lt;/h3&gt;
+&lt;p&gt;修改conf/elasticsearch.yml文件。&lt;/p&gt;
+
+&lt;p&gt;本文节点部署的结构图如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/es_cluster/es.png&quot; alt=&quot;es&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在/etc/hosts文件中添加映射&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;192.168.1.100 es-server01
+192.168.1.101 es-server02
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;节点1的配置&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 修改集群名称
+cluster.name: elasticsearch-cluster
+
+# 节点名称
+node.name: es01-node-1
+
+# 绑定的主机地址
+network.host: es-server01,
+
+# 节点胡发现地址（集群中的每个节点都要部署，默认使用的是9300端口）
+discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server02:9300&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;节点2的配置&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 修改集群名称
+cluster.name: elasticsearch-cluster
+
+# 节点名称
+node.name: es02-node-1
+
+# 绑定的主机地址
+network.host: es-server02,
+
+# 节点胡发现地址（集群中的每个节点都要部署，默认使用的是9300端口）
+discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server02:9300&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;es-start&quot;&gt;启动集群&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;sudo useradd elasticsearch&lt;/li&gt;
+  &lt;li&gt;chown -R elasticsearch:elasticsearch /usr/local/elasticsearch-rtf-5.0&lt;/li&gt;
+  &lt;li&gt;su elasticsearch&lt;/li&gt;
+  &lt;li&gt;cd /usr/local/elasticsearch-rtf-5.0&lt;/li&gt;
+  &lt;li&gt;./bin/elasticsearch -d&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;启动完成,可查看集群信息&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/es_cluster/head.png&quot; alt=&quot;es&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/es_cluster/bigdesk.png&quot; alt=&quot;es&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;es安装与插件安装参考&lt;a href=&quot;/2017/01/17/begin-es-in-chinese&quot;&gt;Begin ElasticSearch&lt;/a&gt;&lt;/p&gt;
+
+</description>
+                    <link>http://yuwang.tech/2017/04/06/es-cluster</link>
+                    <guid>http://yuwang.tech/2017/04/06/es-cluster</guid>
+                    <pubDate>Thu, 06 Apr 2017 00:00:00 +0800</pubDate>
+            </item>
         
             <item>
                     <title>Begin ElasticSearch With Chinese</title>
@@ -43,6 +175,7 @@
   &lt;li&gt;&lt;strong&gt;node&lt;/strong&gt;:  &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.9.4(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.2.0(Windows 10)&lt;/code&gt; (可选)&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;git&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;1.7.1(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;2.7.0 (Windows 10)&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;jre&lt;/strong&gt;: 1.8&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;es&lt;/strong&gt;: 5.0 rtf版&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;setup&quot;&gt;安装步骤&lt;/h2&gt;
@@ -241,6 +374,8 @@
 }&#39;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;es集群安装参考&lt;a href=&quot;/2017/04/06/es-cluster&quot;&gt;ElasticSearch Cluster&lt;/a&gt;&lt;/p&gt;
 
 </description>
                     <link>http://yuwang.tech/2017/01/17/begin-es-in-chinese</link>

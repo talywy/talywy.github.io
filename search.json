@@ -1,6 +1,13 @@
 [
 	
 		{
+		  "title"      : "ElasticSearch Cluster",
+		  "url"        : "/2017/04/06/es-cluster",
+		  "date"       : "2017-04-06 00:00:00 +0800",
+		  "shortdate"  : "April 06, 2017"
+		} ,
+	
+		{
 		  "title"      : "Begin ElasticSearch With Chinese",
 		  "url"        : "/2017/01/17/begin-es-in-chinese",
 		  "date"       : "2017-01-17 00:00:00 +0800",
