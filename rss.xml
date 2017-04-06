@@ -5,8 +5,8 @@
         <description>Yu Wang</description>
         <atom:link href="http://yuwang.tech/rss.xml" rel="self" type="application/rss+xml" />
         <link>http://yuwang.tech</link>
-        <lastBuildDate>Thu, 09 Mar 2017 15:12:16 +0800</lastBuildDate>
-        <pubDate>Thu, 09 Mar 2017 15:12:16 +0800</pubDate>
+        <lastBuildDate>Thu, 06 Apr 2017 20:16:58 +0800</lastBuildDate>
+        <pubDate>Thu, 06 Apr 2017 20:16:58 +0800</pubDate>
         <ttl>1800</ttl>
 
         
@@ -19,6 +19,7 @@
       &lt;li&gt;&lt;a href=&quot;#setup&quot; id=&quot;markdown-toc-setup&quot;&gt;安装步骤&lt;/a&gt;        &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#elasticsearch-rtf&quot; id=&quot;markdown-toc-elasticsearch-rtf&quot;&gt;elasticsearch-rtf 安装&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#elasticsearch-head&quot; id=&quot;markdown-toc-elasticsearch-head&quot;&gt;elasticsearch-head 安装&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#elasticsearch-bigdesk&quot; id=&quot;markdown-toc-elasticsearch-bigdesk&quot;&gt;elasticsearch-bigdesk 安装&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#nginx&quot; id=&quot;markdown-toc-nginx&quot;&gt;nginx&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
@@ -39,7 +40,7 @@
 &lt;h2 id=&quot;env&quot;&gt;本文使用的环境说明及依赖&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;OS&lt;/strong&gt;： &lt;code class=&quot;highlighter-rouge&quot;&gt;CentOS release 6.8&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Windows 10&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;node&lt;/strong&gt;:  &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.9.4(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.2.0(Windows 10)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;node&lt;/strong&gt;:  &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.9.4(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.2.0(Windows 10)&lt;/code&gt; (可选)&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;git&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;1.7.1(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;2.7.0 (Windows 10)&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;jre&lt;/strong&gt;: 1.8&lt;/li&gt;
 &lt;/ul&gt;
@@ -77,8 +78,9 @@
 &lt;p&gt;&lt;img src=&quot;/assets/images/posts/begin_es/es_index.png&quot; alt=&quot;es index&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;elasticsearch-head&quot;&gt;elasticsearch-head 安装&lt;/h3&gt;
-&lt;p&gt;由于head插件在ES5.x版本中不再支持安装在plugin目录中，所以需要独立安装&lt;/p&gt;
+&lt;p&gt;由于head插件在ES5.x版本中不再支持安装在plugin目录中，所以需要独立安装, 有node独立运行以及使用nginx两种方式来安装head插件。&lt;/p&gt;
 
+&lt;h4&gt;使用node独立运行&lt;/h4&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/images/posts/begin_es/head_plugin.png&quot; alt=&quot;head plugin&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
@@ -124,29 +126,80 @@
   &lt;li&gt;open http://localhost:9100/&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h4&gt;使用nginx&lt;/h4&gt;
+&lt;p&gt;elasticsearch-head本身是个静态站点，可直接使用nginx当做服务器来使用。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;cd /usr/local&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;git clone git://github.com/mobz/elasticsearch-head.git&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;然后在nginx中添加&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;location /head {
+   alias /usr/local/elasticsearch-head;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;open http://nginx-server/head&lt;/p&gt;
+
+&lt;h3 id=&quot;elasticsearch-bigdesk&quot;&gt;elasticsearch-bigdesk 安装&lt;/h3&gt;
+&lt;p&gt;原项目作者未升级bigdesk插件用来支持5.x版本，所以使用国内一作者&lt;a href=&quot;https://github.com/hlstudio/bigdesk&quot;&gt;fork的版本&lt;/a&gt;来进行安装&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;cd /usr/local&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;git clone https://github.com/hlstudio/bigdesk.git&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;然后在nginx中添加&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;location /bigdesk {
+    alias /usr/local/bigdesk-master/_site;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;open http://nginx-server/bigdesk&lt;/p&gt;
+
 &lt;h3 id=&quot;nginx&quot;&gt;nginx&lt;/h3&gt;
-&lt;p&gt;由于elasticsearch-head和elasticsearch-rft运行在不同的端口，head插件独立部署后，使用时会有跨域问题，故使用nginx代理服务，进行整合。
-* cd elasticsearch-head
-* mv index.html head.html
-* 添加下面的nginx配置后重启nginx&lt;/p&gt;
+&lt;p&gt;使用nginx将elasticsearch、elasticsearch-head、elasticsearch-bigdesk整合在一起。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;server {
-    listen       80;
-    server_name  localhost;
+&lt;ul&gt;
+  &lt;li&gt;添加下面的nginx配置后重启nginx&lt;/li&gt;
+&lt;/ul&gt;
 
-    location / {
-        proxy_pass http://127.0.0.1:9200;
-    }
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; server {
 
-    location ~/(head|base|_site) {
-        proxy_pass http://127.0.0.1:9100;
-    }
+        listen       80;
+        server_name  localhost;
+
+        location / {
+           proxy_pass http://127.0.0.1:9200;
+        }
+
+        location /bigdesk {
+           alias /usr/local/bigdesk-master/_site;
+        }
+
+        location /head {
+           alias /usr/local/elasticsearch-head;
+        }
+
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;open http://localhost/head.html&lt;/li&gt;
+  &lt;li&gt;es http://localhost&lt;/li&gt;
+  &lt;li&gt;head http://localhost/head&lt;/li&gt;
+  &lt;li&gt;bigdesl http://localhost/bigdesk&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&quot;begin-use&quot;&gt;0x03 使用&lt;/h1&gt;
@@ -157,7 +210,7 @@
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -XPOST &#39;localhost:9200/index/doc?pretty&#39; -d &#39;
 {
-	&quot;url&quot;:&quot;http://www.xxx.com/&quot;,
+    &quot;url&quot;:&quot;http://www.xxx.com/&quot;,
     &quot;title&quot;:&quot;基本概念&quot;,
     &quot;content&quot;:&quot;一些文件内内容的基本概念介绍&quot;
 }&#39;
