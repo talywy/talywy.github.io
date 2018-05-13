@@ -5,8 +5,8 @@
         <description>Yu Wang</description>
         <atom:link href="http://yuwang.tech/rss.xml" rel="self" type="application/rss+xml" />
         <link>http://yuwang.tech</link>
-        <lastBuildDate>Thu, 06 Apr 2017 23:20:48 +0800</lastBuildDate>
-        <pubDate>Thu, 06 Apr 2017 23:20:48 +0800</pubDate>
+        <lastBuildDate>Sun, 13 May 2018 15:00:38 +0800</lastBuildDate>
+        <pubDate>Sun, 13 May 2018 15:00:38 +0800</pubDate>
         <ttl>1800</ttl>
 
         
@@ -466,7 +466,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
             <item>
                     <title>如何创建一个和本站一样的站点</title>
                     <description>
-&lt;p&gt;前段时间无意间看到同事的个人博客站点做的十分精致，想起自己的博客长时间没有维护，许多开发过程中的经验知识都没有积累起来，觉得有点可惜。故研究了一下该同事的博客，经过一段时间研究，基本上了解了博客搭建所需要使用到的技术：Jeklly, Git Page, Ruby, Rake, Disqus。完整技术列表可参考&lt;a href=&quot;&amp;quot;https://github.com/yizeng/yizeng.me/wiki/Acknowledgements&amp;quot;&quot;&gt;这里&lt;/a&gt;。另外，为了将原来在博客园当中写的博客给迁移到这个站点中，使用nodejs写了一个小工具，可将原博客园中导出的博客转换成静态文本并下载相关附件。本站点所有源码及博客文档都托管在&lt;a href=&quot;https://github.com/talywy/talywy.github.io&quot; title=&quot;Source Code&quot;&gt;https://github.com/talywy/talywy.github.io&lt;/a&gt;中。&lt;/p&gt;
+&lt;p&gt;前段时间无意间看到同事的个人博客站点做的十分精致，想起自己的博客长时间没有维护，许多开发过程中的经验知识都没有积累起来，觉得有点可惜。故研究了一下该同事的博客，经过一段时间研究，基本上了解了博客搭建所需要使用到的技术：Jeklly, Git Page, Ruby, Rake, Disqus。完整技术列表可参考&lt;a href=&quot;https://github.com/yizeng/yizeng.me/wiki/Acknowledgements&quot;&gt;这里&lt;/a&gt;。另外，为了将原来在博客园当中写的博客给迁移到这个站点中，使用nodejs写了一个小工具，可将原博客园中导出的博客转换成静态文本并下载相关附件。本站点所有源码及博客文档都托管在&lt;a href=&quot;https://github.com/talywy/talywy.github.io&quot; title=&quot;Source Code&quot;&gt;https://github.com/talywy/talywy.github.io&lt;/a&gt;中。&lt;/p&gt;
 
 &lt;p&gt;另外，原代码为&lt;a href=&quot;http://yizeng.me&quot; title=&quot;Personal site of YiZeng.&quot;&gt;yizeng&lt;/a&gt;的个人站点，感谢原作者提供如此精致的个人站点源码。&lt;/p&gt;
 
@@ -478,8 +478,8 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;p&gt;网站开发环境搭建可参考下面的文章:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;&amp;quot;http://yizeng.me/2013/05/10/setup-jekyll-on-windows/&amp;quot;&quot;&gt;http://yizeng.me/2013/05/10/setup-jekyll-on-windows/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&amp;quot;http://yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/&amp;quot;&quot;&gt;http://yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://yizeng.me/2013/05/10/install-jekyll-3-on-windows/&quot;&gt;http://yizeng.me/2013/05/10/install-jekyll-3-on-windows/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/&quot;&gt;http://yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
