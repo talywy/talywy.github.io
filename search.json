@@ -36,6 +36,13 @@
 		} ,
 	
 		{
+		  "title"      : "HelloWorld - Linux",
+		  "url"        : "/2013/06/05/hello-world-linux",
+		  "date"       : "2013-06-05 00:00:00 +0800",
+		  "shortdate"  : "June 05, 2013"
+		} ,
+	
+		{
 		  "title"      : "FlashCC学习札记",
 		  "url"        : "/2013/04/03/flashcc",
 		  "date"       : "2013-04-03 00:00:00 +0800",

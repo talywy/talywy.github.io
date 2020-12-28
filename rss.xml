@@ -5,8 +5,8 @@
         <description>Yu Wang</description>
         <atom:link href="http://yuwang.tech/rss.xml" rel="self" type="application/rss+xml" />
         <link>http://yuwang.tech</link>
-        <lastBuildDate>Sun, 13 May 2018 15:00:38 +0800</lastBuildDate>
-        <pubDate>Sun, 13 May 2018 15:00:38 +0800</pubDate>
+        <lastBuildDate>Mon, 28 Dec 2020 17:11:10 +0800</lastBuildDate>
+        <pubDate>Mon, 28 Dec 2020 17:11:10 +0800</pubDate>
         <ttl>1800</ttl>
 
         
@@ -33,8 +33,8 @@
 
 &lt;h2 id=&quot;env&quot;&gt;本文使用的环境说明及依赖&lt;/h2&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;OS&lt;/strong&gt;： &lt;code class=&quot;highlighter-rouge&quot;&gt;CentOS release 6.8&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;git&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;1.7.1(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;2.7.0 (Windows 10)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;OS&lt;/strong&gt;： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CentOS release 6.8&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;git&lt;/strong&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.7.1(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.7.0 (Windows 10)&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;jre&lt;/strong&gt;: 1.8&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;es&lt;/strong&gt;: 5.0 rtf版&lt;/li&gt;
 &lt;/ul&gt;
@@ -49,27 +49,25 @@
 在/etc/security/limits.conf文件中增加&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*        soft   nproc  65536
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*        soft   nproc  65536
 *        hard   nproc  65536
 *        soft   nofile  65536
 *        hard   nofile  65536
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;增加虚拟内存MAP空间数，
 在/etc/sysctl.conf文件中增加&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vm.max_map_count = 262144
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vm.max_map_count = 262144
 vm.swappiness = 1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;关闭swap交换区
 &lt;strong&gt;临时关闭&lt;/strong&gt;：sudo swapoff -a
-&lt;strong&gt;永久关闭&lt;/strong&gt;：打开&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/fstab&lt;/code&gt;文件中包含&lt;code class=&quot;highlighter-rouge&quot;&gt;swap&lt;/code&gt;关键字的行注释&lt;/li&gt;
+&lt;strong&gt;永久关闭&lt;/strong&gt;：打开&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/fstab&lt;/code&gt;文件中包含&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swap&lt;/code&gt;关键字的行注释&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;es-config&quot;&gt;es配置&lt;/h3&gt;
@@ -81,14 +79,13 @@ vm.swappiness = 1
 
 &lt;p&gt;在/etc/hosts文件中添加映射&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;192.168.1.100 es-server01
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;192.168.1.100 es-server01
 192.168.1.101 es-server02
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;节点1的配置&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 修改集群名称
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 修改集群名称
 cluster.name: elasticsearch-cluster
 
 # 节点名称
@@ -99,12 +96,11 @@ network.host: es-server01,
 
 # 节点胡发现地址（集群中的每个节点都要部署，默认使用的是9300端口）
 discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server02:9300&quot;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;节点2的配置&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 修改集群名称
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 修改集群名称
 cluster.name: elasticsearch-cluster
 
 # 节点名称
@@ -115,8 +111,7 @@ network.host: es-server02,
 
 # 节点胡发现地址（集群中的每个节点都要部署，默认使用的是9300端口）
 discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server02:9300&quot;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;es-start&quot;&gt;启动集群&lt;/h3&gt;
 
@@ -171,9 +166,9 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 
 &lt;h2 id=&quot;env&quot;&gt;本文使用的环境说明及依赖&lt;/h2&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;OS&lt;/strong&gt;： &lt;code class=&quot;highlighter-rouge&quot;&gt;CentOS release 6.8&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Windows 10&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;node&lt;/strong&gt;:  &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.9.4(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.2.0(Windows 10)&lt;/code&gt; (可选)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;git&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;1.7.1(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;2.7.0 (Windows 10)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;OS&lt;/strong&gt;： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CentOS release 6.8&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Windows 10&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;node&lt;/strong&gt;:  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v6.9.4(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v6.2.0(Windows 10)&lt;/code&gt; (可选)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;git&lt;/strong&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.7.1(CentOS release 6.8)&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.7.0 (Windows 10)&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;jre&lt;/strong&gt;: 1.8&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;es&lt;/strong&gt;: 5.0 rtf版&lt;/li&gt;
 &lt;/ul&gt;
@@ -191,8 +186,10 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
   &lt;p&gt;git clone git://github.com/medcl/elasticsearch-rtf.git -b master –depth 1&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;经过漫长的等待,完成下载
-&amp;gt; cd elasticsearch-rtf&lt;/p&gt;
+&lt;p&gt;经过漫长的等待,完成下载&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;cd elasticsearch-rtf&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;ul&gt;
   &lt;li&gt;修改配置文件&lt;/li&gt;
@@ -202,7 +199,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;p&gt;&lt;img src=&quot;/assets/images/posts/begin_es/es_config.png&quot; alt=&quot;head plugin&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;修改conf/jvm.options及bin/elasticsearch文件的编码为UTF8&lt;/strong&gt;（vim中使用&lt;code class=&quot;highlighter-rouge&quot;&gt;:set ff?&lt;/code&gt;查看文件格式，如果出现fileforma＝dos则说明文件编码格式不对，可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;:set fileformat=unix&lt;/code&gt;来修改文件的编码为正确格式）&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;修改conf/jvm.options及bin/elasticsearch文件的编码为UTF8&lt;/strong&gt;（vim中使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:set ff?&lt;/code&gt;查看文件格式，如果出现fileforma＝dos则说明文件编码格式不对，可以使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:set fileformat=unix&lt;/code&gt;来修改文件的编码为正确格式）&lt;/li&gt;
   &lt;li&gt;启动 &lt;strong&gt;注意&lt;/strong&gt;: 使用非root账号来启动&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -276,11 +273,10 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 
 &lt;p&gt;然后在nginx中添加&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;location /head {
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;location /head {
    alias /usr/local/elasticsearch-head;
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;open http://nginx-server/head&lt;/p&gt;
 
@@ -297,11 +293,10 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 
 &lt;p&gt;然后在nginx中添加&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;location /bigdesk {
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;location /bigdesk {
     alias /usr/local/bigdesk-master/_site;
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;open http://nginx-server/bigdesk&lt;/p&gt;
 
@@ -312,7 +307,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
   &lt;li&gt;添加下面的nginx配置后重启nginx&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; server {
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; server {
 
         listen       80;
         server_name  localhost;
@@ -330,8 +325,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
         }
 
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;es http://localhost&lt;/li&gt;
@@ -345,18 +339,17 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;之前测试windows cygw下的curl有中文编码问题，命令建议从head插件页面上进行执行&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -XPOST &#39;localhost:9200/index/doc?pretty&#39; -d &#39;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -XPOST 'localhost:9200/index/doc?pretty' -d '
 {
     &quot;url&quot;:&quot;http://www.xxx.com/&quot;,
     &quot;title&quot;:&quot;基本概念&quot;,
     &quot;content&quot;:&quot;一些文件内内容的基本概念介绍&quot;
-}&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+}'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;search-data&quot;&gt;查询&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -XPOST &#39;localhost:9200/index/doc&#39; -d &#39;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -XPOST 'localhost:9200/index/doc' -d '
 {
   &quot;query&quot;: {
     &quot;multi_match&quot;: {
@@ -375,9 +368,8 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
       &quot;content&quot;: {}
     }
   }
-}&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+}'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;es集群安装参考&lt;a href=&quot;/2017/04/06/es-cluster&quot;&gt;ElasticSearch Cluster&lt;/a&gt;&lt;/p&gt;
 
@@ -391,34 +383,17 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
                     <title>Begin SSL</title>
                     <description>
 &lt;h1&gt;证书级别&lt;/h1&gt;
-&lt;p&gt;OV,PV,EV
-# nginx配置
-## 生成证书
-如何生成证书
-常见的几种中间文件
-# 客户端使用证书
-## 浏览器
-## Android
-## ios
-## Java程序
-## PHP&lt;/p&gt;
-
-&lt;p&gt;前段时间无意间看到同事的个人博客站点做的十分精致，想起自己的博客长时间没有维护，许多开发过程中的经验知识都没有积累起来，觉得有点可惜。故研究了一下该同事的博客，经过一段时间研究，基本上了解了博客搭建所需要使用到的技术：Jeklly, Git Page, Ruby, Rake, Disqus。完整技术列表可参考&lt;a href=&quot;&amp;quot;https://github.com/yizeng/yizeng.me/wiki/Acknowledgements&amp;quot;&quot;&gt;这里&lt;/a&gt;。另外，为了将原来在博客园当中写的博客给迁移到这个站点中，使用nodejs写了一个小工具，可将原博客园中导出的博客转换成静态文本并下载相关附件。本站点所有源码及博客文档都托管在&lt;a href=&quot;https://github.com/talywy/talywy.github.io&quot; title=&quot;Source Code&quot;&gt;https://github.com/talywy/talywy.github.io&lt;/a&gt;中。&lt;/p&gt;
-
-&lt;p&gt;另外，原代码为&lt;a href=&quot;http://yizeng.me&quot; title=&quot;Personal site of YiZeng.&quot;&gt;yizeng&lt;/a&gt;的个人站点，感谢原作者提供如此精致的个人站点源码。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;原作者站点地址: &lt;a href=&quot;http://yizeng.me&quot; title=&quot;Personal site of YiZeng.&quot;&gt;http://yizeng.me&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;同事的站点: &lt;a href=&quot;https://zhanjindong.com&quot; title=&quot;Personal site of JingDong Zhan&quot;&gt;https://zhanjindong.com&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;网站开发环境搭建可参考下面的文章:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;&amp;quot;http://yizeng.me/2013/05/10/setup-jekyll-on-windows/&amp;quot;&quot;&gt;http://yizeng.me/2013/05/10/setup-jekyll-on-windows/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&amp;quot;http://yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/&amp;quot;&quot;&gt;http://yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
+&lt;p&gt;OV,PV,EV&lt;/p&gt;
+&lt;h1&gt;nginx配置&lt;/h1&gt;
+&lt;h2&gt;生成证书&lt;/h2&gt;
+&lt;p&gt;如何生成证书
+常见的几种中间文件&lt;/p&gt;
+&lt;h1&gt;客户端使用证书&lt;/h1&gt;
+&lt;h2&gt;浏览器&lt;/h2&gt;
+&lt;h2&gt;Android&lt;/h2&gt;
+&lt;h2&gt;ios&lt;/h2&gt;
+&lt;h2&gt;Java程序&lt;/h2&gt;
+&lt;h2&gt;PHP&lt;/h2&gt;
 </description>
                     <link>http://yuwang.tech/2016/12/05/begin-ssl</link>
                     <guid>http://yuwang.tech/2016/12/05/begin-ssl</guid>
@@ -489,8 +464,73 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
             </item>
         
             <item>
+                    <title>HelloWorld - Linux</title>
+                    <description>
+&lt;style type=&quot;text/css&quot;&gt; pre { background-color: #eee;  color: black; }&lt;/style&gt;
+
+&lt;div class=&quot;postBody&quot;&gt;
+                
+&lt;div id=&quot;cnblogs_post_body&quot; class=&quot;blogpost-body&quot;&gt;
+&lt;p&gt;说明：本文基于Centos 6.4 32位操作系统(&lt;a href=&quot;http://centos.ustc.edu.cn/centos/6.4/isos/i386/CentOS-6.4-i386-LiveDVD.iso&quot;&gt;CentOS-6.4-i386-LiveDVD.iso&lt;/a&gt;)&lt;p&gt;
+
+&lt;h2&gt;一、编写HelloWorld源码&lt;/h2&gt;
+
+&lt;p&gt;远程连接到Centos机器上，先建立一个文件夹用来存放源码：&lt;/p&gt;
+&lt;p&gt;使用mkdir 建立目录 (&lt;em&gt;-p参数指定当父目录不存在时先创建父目录&lt;/em&gt;)&lt;/p&gt;
+&lt;p&gt;使用cd命令切换到刚才建立的目录下。&lt;/p&gt;
+&lt;p&gt;&lt;img style=&quot;margin-left: 0; display: inline; margin-right: 0; border-width: 0&quot; title=&quot;01&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201306/05222704-5937945efe9c440786a2fd5d89f24972.png&quot; alt=&quot;01&quot; width=&quot;551&quot; height=&quot;48&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;使用Centos预装的Vim文本编辑器创建HelloWorld.c源码，输入经典的HelloWorld源代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;span style=&quot;color: rgba(0, 128, 128, 1)&quot;&gt;1&lt;/span&gt;    #include &amp;lt;stdio.h&amp;gt;
+&lt;span style=&quot;color: rgba(0, 128, 128, 1)&quot;&gt;2&lt;/span&gt;   
+&lt;span style=&quot;color: rgba(0, 128, 128, 1)&quot;&gt;3&lt;/span&gt;    &lt;span style=&quot;color: rgba(0, 0, 255, 1)&quot;&gt;int&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 1)&quot;&gt; main()
+&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 128, 128, 1)&quot;&gt;4&lt;/span&gt;   &lt;span style=&quot;color: rgba(0, 0, 0, 1)&quot;&gt; {
+&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 128, 128, 1)&quot;&gt;5&lt;/span&gt;        printf(&lt;span style=&quot;color: rgba(128, 0, 0, 1)&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: rgba(128, 0, 0, 1)&quot;&gt;Hello World!\n&lt;/span&gt;&lt;span style=&quot;color: rgba(128, 0, 0, 1)&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 1)&quot;&gt;);
+&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 128, 128, 1)&quot;&gt;6&lt;/span&gt;        &lt;span style=&quot;color: rgba(0, 0, 255, 1)&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color: rgba(128, 0, 128, 1)&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 1)&quot;&gt;;
+&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 128, 128, 1)&quot;&gt;7&lt;/span&gt;    }&lt;/pre&gt;
+&lt;p&gt;输入完毕后保存为HelloWorld.c文件。&lt;/p&gt;
+
+&lt;h2&gt;二、安装GCC&lt;/h2&gt;
+
+&lt;p&gt;回到控制台输入gcc命令，判断机器上有没有安装gcc编译器，如果没有安装的话则会出现下面的提示：&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;img style=&quot;display: inline; border-width: 0&quot; title=&quot;02&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201306/05222704-68cdbdb32f514569b58404198d4e99ae.png&quot; alt=&quot;02&quot; width=&quot;295&quot; height=&quot;28&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;要安装gcc很容易。&lt;span style=&quot;color: rgba(255, 0, 0, 1)&quot;&gt;联网状态&lt;/span&gt;下输入yum install gcc 来安装gcc:&lt;/p&gt;
+&lt;p&gt;&lt;img style=&quot;display: inline; border-width: 0&quot; title=&quot;03&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201306/05222707-c42ac63c7c3b409eac37e05c4c68509a.png&quot; alt=&quot;03&quot; width=&quot;654&quot; height=&quot;100&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;系统会自动检查需要安装的组件，并在检查完毕后给出提示需要安装那些组件包，并告知需要下载的组件包总大小和安装需占用的磁盘空间:&lt;/p&gt;
+&lt;p&gt;&lt;img style=&quot;display: inline; border-width: 0&quot; title=&quot;04&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201306/05222712-3ead811cbf714a40948bd638f1efcf4c.png&quot; alt=&quot;04&quot; width=&quot;656&quot; height=&quot;224&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;按y确认后，系统则会下载需要的组件包并进行安装。安装成功后会出现Complete提示，此时输入gcc -v命令则可查看安装的gcc版本。&lt;/p&gt;
+&lt;p&gt;&lt;img style=&quot;display: inline; border-width: 0&quot; title=&quot;05&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201306/05222718-b786e6d7008447a79f637ed60f256134.png&quot; alt=&quot;05&quot; width=&quot;654&quot; height=&quot;111&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;三、编译源码&lt;/h2&gt;
+&lt;p&gt;如果前面的操作都顺利的话，当前的工作目录应该还在:&lt;/p&gt;
+&lt;p style=&quot;border: 1px solid rgba(195, 195, 195, 1); padding: 5px&quot;&gt;/home/root/study/cplusplus/test/HelloWorld&lt;/p&gt;
+&lt;p&gt;如果不确定的话，可以输入pwd命令来输出当前工作目录。如果当前目录不是上面显示的目录，可以使用cd命令切换到上面的目录。&lt;/p&gt;
+&lt;p&gt;命令行中输入gcc –o HelloWorld HelloWorld.c执行编译链接。如果一切正常的话，输入ll 命令此，则会看到在当前目录下会多出一个HelloWorld文件。该文件就是生成的可执行文件。&lt;/p&gt;
+&lt;p&gt;&lt;img style=&quot;display: inline; border-width: 0&quot; title=&quot;06&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201306/05222719-739faca92936453da80fe66328fcc868.png&quot; alt=&quot;06&quot; width=&quot;375&quot; height=&quot;61&quot; /&gt;&lt;/p&gt;
+
+
+&lt;h2&gt;四、运行程序&lt;/h2&gt;
+&lt;p&gt;直接在当前目录下输入./HelloWorld即可看见经典的“Hello World ”输出到屏幕上了。&lt;/p&gt;
+&lt;p&gt;&lt;img style=&quot;display: inline; border-width: 0&quot; title=&quot;07&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201306/05222720-1c83d75a46fd4033b265a136412a0183.png&quot; alt=&quot;07&quot; width=&quot;314&quot; height=&quot;31&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;需要说明的是，在Linux系统中如果要成功执行一个程序。那么该程序对当前用户来讲&lt;span style=&quot;color: rgba(255, 0, 0, 1)&quot;&gt;必须要有执行的权限&lt;/span&gt;，“&lt;a href=&quot;#flag&quot;&gt;编译源码&lt;/a&gt;”一节图片中红色区域表示HelloWorld这个文件对于root用户的权限是:读、写、执行，对应root用户组成员的权限是读、执行，对于其他用户的权限也是读、执行。为了验证，我们做如下操作：(&lt;strong&gt;说明：需先创建一个普通用户且不在root组中，此文中该普通用户名是Taly&lt;/strong&gt;)&lt;/p&gt;
+&lt;p&gt;输入su Taly，切换到普通用户下，输入./HelloWorld，程序正常执行。回到root用户角色下，输入命令&lt;/p&gt;
+&lt;p&gt;chmod 754 HelloWorld 去除其他用户的执行权限，再次使用Taly运行./HelloWorld，此时报权限不足的错误。具体流程如下图:&lt;/p&gt;
+&lt;p&gt;&lt;img style=&quot;display: inline; border: 0&quot; title=&quot;08&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201306/05222727-e9d12468495a457ca5343b0306cd5ce1.png&quot; alt=&quot;08&quot; width=&quot;477&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;版权说明：&lt;/strong&gt;&lt;strong&gt;本文章版权归本人及博客园共同所有，未经允许请勿用于任何商业用途。欢迎转载，转载请标明原文出处:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/talywy/archive/2013/06/05/3120036.html&quot;&gt;http://www.cnblogs.com/talywy/archive/2013/06/05/3120036.html&lt;/a&gt;&lt;/p&gt;
+&lt;/p&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+                    <link>http://yuwang.tech/2013/06/05/hello-world-linux</link>
+                    <guid>http://yuwang.tech/2013/06/05/hello-world-linux</guid>
+                    <pubDate>Wed, 05 Jun 2013 00:00:00 +0800</pubDate>
+            </item>
+        
+            <item>
                     <title>FlashCC学习札记</title>
-                    <description>&lt;p&gt;前段时间项目中有一个功能模块用到了FlashCC，将C++的代码编译成swc文件，以便在Flash工程中使用。开发过程中遇到一些问题，现在记录下来，以便日后查阅。&lt;/p&gt;
+                    <description>&lt;style type=&quot;text/css&quot;&gt; pre { background-color: #eee;  color: black; }&lt;/style&gt;
+
+&lt;p&gt;前段时间项目中有一个功能模块用到了FlashCC，将C++的代码编译成swc文件，以便在Flash工程中使用。开发过程中遇到一些问题，现在记录下来，以便日后查阅。&lt;/p&gt;
 &lt;h2 class=&quot;custom-h2&quot;&gt;一、开发环境搭建&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;说明:本文所使用的FlashCC版本为1.0.1， 操作系统为Windows7 Professional 32位&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;相对于FlashCC的前身Alchemy来说，FlashCC的开发环境搭建已经简化了许多，一些开发过程中依赖的组件已经默认集成到官方提供的定制Cygwin当中。首先需要注意最小系统需求，下面是官方给出的标准：&lt;/p&gt;
@@ -511,13 +551,13 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;h2 class=&quot;custom-h2&quot;&gt;二、编译样例程序&lt;/h2&gt;
 &lt;p&gt;直接运行F:\Flash\FlasCC_1.0.1\run.bat，切换工作目录到01_HelloWorld下：&lt;/p&gt;
 &lt;p&gt;注意:如果使用的是32位Java虚拟机，则需要修改一下01_HelloWorld下的Makefile, 在编译命令后加上-jvmopt=-Xmx1G&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:c3f1106c-5951-4f41-a3b5-bd4d0a774859&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;http://images.cnitblog.com/blog/141415/201304/03131400-4859131f2ad5403183e2f9773589fe4a.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201304/03131402-8ac39c92aa8b40a1962e5d25bb05836f.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;201&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:c3f1106c-5951-4f41-a3b5-bd4d0a774859&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201304/03131402-8ac39c92aa8b40a1962e5d25bb05836f.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;201&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;否则会报下面的错误:&lt;/p&gt;
 &lt;p&gt;&amp;ldquo;LLVM ERROR: Error: Unable to launch the Java Virtual Machine.    &lt;br /&gt;This usually means you have a 32bit JVM installed or have set your Java heap siz     &lt;br /&gt;e too large.     &lt;br /&gt;Try lowering the Java heap size by passing &quot;-jvmopt=-Xmx1G&quot; to gcc/g++.&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;在cygwin窗口中输入make：&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:84d5cd2a-4650-4cb5-a8c6-afc3d1785193&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;http://images.cnitblog.com/blog/141415/201304/03131403-3cb154e8fe1a49689e3585c955e2188e.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201304/03131405-570880f6251a42aa84f1f3d5d8eb7682.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;404&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:84d5cd2a-4650-4cb5-a8c6-afc3d1785193&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201304/03131405-570880f6251a42aa84f1f3d5d8eb7682.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;404&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;一切顺利的话，会在01_HelloWorld目录下多出hello.exe和hello.swf两个文件，使用FlashPlayer打开hello.swf，效果如下：&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:e374ea47-cfa4-44aa-a02b-d1e0c1f4f85b&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;http://images.cnitblog.com/blog/141415/201304/03131406-469e0a2cd71049b2aa22c32a916967c4.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201304/03131406-c89796e9a24341f696262189edcbf72c.png&quot; alt=&quot;&quot; width=&quot;282&quot; height=&quot;335&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:e374ea47-cfa4-44aa-a02b-d1e0c1f4f85b&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201304/03131406-c89796e9a24341f696262189edcbf72c.png&quot; alt=&quot;&quot; width=&quot;282&quot; height=&quot;335&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;h2 class=&quot;custom-h2&quot;&gt;三、开发中遇到的问题&lt;/h2&gt;
 &lt;p&gt;1、FlashCC使用cygwin编译代码，而cygwin是一个linux环境的模拟器，所以要求被编译的代码要使用标准C/C++。或者是做一些跨平台处理。&lt;/p&gt;
@@ -525,7 +565,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;p&gt;3、以前安装的Flash Professional CS5.5发布swf时flash版本最高只能指定到10.2，可以参考下面的文章来添加更高版本的flash支持&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://blogs.adobe.com/rgalvan/2011/11/adding-fp11-support-to-flash-pro-cs5-and-cs5-5.html&quot;&gt;Adding Flash Player 11 support to Flash Pro CS5 and CS5.5&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;4、关于从AS3代码中向C++中传递ByteArray参数的方法，一开始参考了&lt;a href=&quot;http://stackoverflow.com/questions/14326828/how-to-pass-bytearray-to-c-code-using-flascc&quot;&gt;这篇文章&lt;/a&gt;，实际测试中发现这种方法在我编写的功能模块中并不能正确工作。后来采用官方Demo中的数据传递方法成功解决了ByteArray传参问题。贴出参考代码：&lt;/p&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;57502822-076c-45b4-b827-bb318b84c6eb&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_57502822-076c-45b4-b827-bb318b84c6eb&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_57502822-076c-45b4-b827-bb318b84c6eb&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;57502822-076c-45b4-b827-bb318b84c6eb&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;AS3&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('57502822-076c-45b4-b827-bb318b84c6eb')&quot;&gt;&lt;img id=&quot;code_img_closed_57502822-076c-45b4-b827-bb318b84c6eb&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_57502822-076c-45b4-b827-bb318b84c6eb&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('57502822-076c-45b4-b827-bb318b84c6eb',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;AS3&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_57502822-076c-45b4-b827-bb318b84c6eb&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #008000;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; First lets fill a ByteArray like we normally would in ActionScript &lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;var&lt;/span&gt; bytes:ByteArray = &lt;span style=&quot;color: #0000ff;&quot;&gt;new&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; ByteArray(); 
@@ -538,7 +578,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;span style=&quot;color: #008080;&quot;&gt; 9&lt;/span&gt; &lt;span style=&quot;color: #008000;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; Now we want a pointer to that ByteArray &lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;10&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;var&lt;/span&gt; bytesPtr:int =&lt;span style=&quot;color: #000000;&quot;&gt; CModule.malloc(bytes.length);
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;11&lt;/span&gt; 
-&lt;span style=&quot;color: #008080;&quot;&gt;12&lt;/span&gt; &lt;span style=&quot;color: #008000;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; Use CModule.writeBytes() to write the ByteArray we created into flascc&#39;s &lt;/span&gt;
+&lt;span style=&quot;color: #008080;&quot;&gt;12&lt;/span&gt; &lt;span style=&quot;color: #008000;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; Use CModule.writeBytes() to write the ByteArray we created into flascc's &lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;13&lt;/span&gt; &lt;span style=&quot;color: #008000;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; main memory.  The parameters of writeBytes() are first the pointer in flascc &lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;14&lt;/span&gt; &lt;span style=&quot;color: #008000;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; memory, the length of the ByteArray, and the ByteArray itself &lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;15&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;CModule.writeBytes(bytesPtr, bytes.length, bytes); 
@@ -546,7 +586,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;17&lt;/span&gt; CModule.free(bytesPtr);&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;C&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0')&quot;&gt;&lt;img id=&quot;code_img_closed_ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;C&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_ebe7f204-e7f4-4e34-952c-ad5d8bab8bb0&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; __attribute__((annotate(&lt;span style=&quot;color: #800000;&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;as3sig:public function _wrap_examineBytes(buffer:int, bufferSize:int):int&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;))) 
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;void&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; _wrap_examineBytes() { 
@@ -584,10 +624,12 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
         
             <item>
                     <title>时间同步小工具(Python + Windows Service + NSIS)</title>
-                    <description>&lt;p&gt;家里有台很多年前买的电脑，CMOS电池残废了，经常遇到开机后系统时间被重置的情况，老妈向我反映用起来很不方便。于是身为一个程序员的我想到写个小工具来帮老妈排忧解难。话不多说，小工具需求如下: &lt;br /&gt;&lt;strong&gt;功能需求&lt;/strong&gt; -- 电脑开机后自动执行时间同步     &lt;br /&gt;&lt;strong&gt;非功能需求&lt;/strong&gt; -- 安装执行简单，无需安装额外环境&lt;/p&gt;
+                    <description>&lt;style type=&quot;text/css&quot;&gt; pre { background-color: #eee;  color: black; }&lt;/style&gt;
+
+&lt;p&gt;家里有台很多年前买的电脑，CMOS电池残废了，经常遇到开机后系统时间被重置的情况，老妈向我反映用起来很不方便。于是身为一个程序员的我想到写个小工具来帮老妈排忧解难。话不多说，小工具需求如下: &lt;br /&gt;&lt;strong&gt;功能需求&lt;/strong&gt; -- 电脑开机后自动执行时间同步     &lt;br /&gt;&lt;strong&gt;非功能需求&lt;/strong&gt; -- 安装执行简单，无需安装额外环境&lt;/p&gt;
 &lt;h2 class=&quot;custom-h2&quot;&gt;一、代码实现&lt;/h2&gt;
 &lt;p&gt;基于以上需求，思路如下：访问网络获取北京时间，然后调用命令行来设置系统时间。程序写成Windows Service，并设置为开机自动运行。正好前段时间在学习Python，所以打算用Python来写这个工具。具体代码如下：&lt;/p&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;获取网络时间&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1')&quot;&gt;&lt;img id=&quot;code_img_closed_b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;获取网络时间&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_b51aa0bc-d4fe-445d-a9d0-a46bdf3f0be1&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;def&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; getBeijinTime():
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt;     &lt;span style=&quot;color: #800000;&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
@@ -619,7 +661,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;28&lt;/span&gt;         &lt;span style=&quot;color: #0000ff;&quot;&gt;return&lt;/span&gt; None&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;229e0198-e9e3-4628-bac7-ea0e8a73651f&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_229e0198-e9e3-4628-bac7-ea0e8a73651f&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_229e0198-e9e3-4628-bac7-ea0e8a73651f&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;229e0198-e9e3-4628-bac7-ea0e8a73651f&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;同步本地系统时间&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('229e0198-e9e3-4628-bac7-ea0e8a73651f')&quot;&gt;&lt;img id=&quot;code_img_closed_229e0198-e9e3-4628-bac7-ea0e8a73651f&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_229e0198-e9e3-4628-bac7-ea0e8a73651f&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('229e0198-e9e3-4628-bac7-ea0e8a73651f',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;同步本地系统时间&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_229e0198-e9e3-4628-bac7-ea0e8a73651f&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;def&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; syncLocalTime():
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt;     &lt;span style=&quot;color: #800000;&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
@@ -644,7 +686,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/div&gt;
 &lt;h2 class=&quot;custom-h2&quot;&gt;二、部署安装&lt;/h2&gt;
 &lt;p&gt;为了让Python程序能以Windows服务的方式运行，需要用到&lt;a href=&quot;http://www.py2exe.org/&quot;&gt;py2exe&lt;/a&gt;(用来把Python程序编译成exe)和&lt;a href=&quot;http://starship.python.net/~skippy/win32/Downloads.html&quot;&gt;Python Win32 Extensions&lt;/a&gt; 。(py2exe把Python代码编译成Winodws服务时依赖此组件)下载并安装这两个组件。安装完毕后，在Python的安装目录下找到py2exe的Windows Service示例({PythonRoot}\Lib\site-packages\py2exe\samples\advanced\MyService.py)。然后仿照这个示例将上面的代码完善一下。&lt;/p&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;59359157-ab5c-4222-bf64-af8f21bcdd06&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_59359157-ab5c-4222-bf64-af8f21bcdd06&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_59359157-ab5c-4222-bf64-af8f21bcdd06&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;59359157-ab5c-4222-bf64-af8f21bcdd06&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;Windows服务示例&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('59359157-ab5c-4222-bf64-af8f21bcdd06')&quot;&gt;&lt;img id=&quot;code_img_closed_59359157-ab5c-4222-bf64-af8f21bcdd06&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_59359157-ab5c-4222-bf64-af8f21bcdd06&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('59359157-ab5c-4222-bf64-af8f21bcdd06',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;Windows服务示例&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_59359157-ab5c-4222-bf64-af8f21bcdd06&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;import&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; win32serviceutil
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;import&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; win32service
@@ -668,37 +710,37 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;span style=&quot;color: #008080;&quot;&gt;20&lt;/span&gt;     &lt;span style=&quot;color: #0000ff;&quot;&gt;def&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; SvcDoRun(self):
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;21&lt;/span&gt;         &lt;span style=&quot;color: #0000ff;&quot;&gt;import&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; servicemanager
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;22&lt;/span&gt;           
-&lt;span style=&quot;color: #008080;&quot;&gt;23&lt;/span&gt;         &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; Write a &#39;started&#39; event to the event log...&lt;/span&gt;
+&lt;span style=&quot;color: #008080;&quot;&gt;23&lt;/span&gt;         &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; Write a 'started' event to the event log...&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;24&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;        win32evtlogutil.ReportEvent(self._svc_name_,
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;25&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;                                    servicemanager.PYS_SERVICE_STARTED,
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;26&lt;/span&gt;                                     0, &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; category&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;27&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;                                    servicemanager.EVENTLOG_INFORMATION_TYPE,
-&lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;28&lt;/span&gt;                                     (self._svc_name_, &lt;span style=&quot;color: #800000;&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;))
+&lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;28&lt;/span&gt;                                     (self._svc_name_, &lt;span style=&quot;color: #800000;&quot;&gt;''&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;))
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;29&lt;/span&gt; 
 &lt;span style=&quot;color: #008080;&quot;&gt;30&lt;/span&gt;         &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; wait for beeing stopped...&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;31&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;        win32event.WaitForSingleObject(self.hWaitStop, win32event.INFINITE)
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;32&lt;/span&gt; 
-&lt;span style=&quot;color: #008080;&quot;&gt;33&lt;/span&gt;         &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; and write a &#39;stopped&#39; event to the event log.&lt;/span&gt;
+&lt;span style=&quot;color: #008080;&quot;&gt;33&lt;/span&gt;         &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; and write a 'stopped' event to the event log.&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;34&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;        win32evtlogutil.ReportEvent(self._svc_name_,
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;35&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;                                    servicemanager.PYS_SERVICE_STOPPED,
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;36&lt;/span&gt;                                     0, &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; category&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;37&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;                                    servicemanager.EVENTLOG_INFORMATION_TYPE,
-&lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;38&lt;/span&gt;                                     (self._svc_name_, &lt;span style=&quot;color: #800000;&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;))   
+&lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;38&lt;/span&gt;                                     (self._svc_name_, &lt;span style=&quot;color: #800000;&quot;&gt;''&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;))   
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;39&lt;/span&gt; 
-&lt;span style=&quot;color: #008080;&quot;&gt;40&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #800080;&quot;&gt;__name__&lt;/span&gt; == &lt;span style=&quot;color: #800000;&quot;&gt;&#39;&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;__main__&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;&#39;&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;:
-&lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;41&lt;/span&gt;     &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; Note that this code will not be run in the &#39;frozen&#39; exe-file!!!&lt;/span&gt;
+&lt;span style=&quot;color: #008080;&quot;&gt;40&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #800080;&quot;&gt;__name__&lt;/span&gt; == &lt;span style=&quot;color: #800000;&quot;&gt;'&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;__main__&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;'&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;:
+&lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;41&lt;/span&gt;     &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; Note that this code will not be run in the 'frozen' exe-file!!!&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt;42&lt;/span&gt;     win32serviceutil.HandleCommandLine(SynctimeService)  &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;之后，再编写一个steup.py文件用来生成安装文件。&lt;/p&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;2775d983-35ca-46ad-8e89-25b729129948&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_2775d983-35ca-46ad-8e89-25b729129948&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_2775d983-35ca-46ad-8e89-25b729129948&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;2775d983-35ca-46ad-8e89-25b729129948&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;Setup.py&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('2775d983-35ca-46ad-8e89-25b729129948')&quot;&gt;&lt;img id=&quot;code_img_closed_2775d983-35ca-46ad-8e89-25b729129948&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_2775d983-35ca-46ad-8e89-25b729129948&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('2775d983-35ca-46ad-8e89-25b729129948',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;Setup.py&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_2775d983-35ca-46ad-8e89-25b729129948&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;from&lt;/span&gt; distutils.core &lt;span style=&quot;color: #0000ff;&quot;&gt;import&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; setup
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;import&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt; py2exe
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 3&lt;/span&gt; 
 &lt;span style=&quot;color: #008080;&quot;&gt; 4&lt;/span&gt; &lt;span style=&quot;color: #000000;&quot;&gt;setup(
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 5&lt;/span&gt;     &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; The first three parameters are not required, if at least a&lt;/span&gt;
-&lt;span style=&quot;color: #008080;&quot;&gt; 6&lt;/span&gt;     &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; &#39;version&#39; is given, then a versioninfo resource is built from&lt;/span&gt;
+&lt;span style=&quot;color: #008080;&quot;&gt; 6&lt;/span&gt;     &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; 'version' is given, then a versioninfo resource is built from&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 7&lt;/span&gt;     &lt;span style=&quot;color: #008000;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; them and added to the executables.&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 8&lt;/span&gt;     version = &lt;span style=&quot;color: #800000;&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;0.0.1&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;,
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 9&lt;/span&gt;     description = &lt;span style=&quot;color: #800000;&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;Synchroniz local system time with beijin time&lt;/span&gt;&lt;span style=&quot;color: #800000;&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #000000;&quot;&gt;,
@@ -711,16 +753,16 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;编译生成windows程序，如下图：&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:a9cdaa25-1e73-44bc-89e3-39f53293f702&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;http://images.cnitblog.com/blog/141415/201303/07205200-3211093ce14b489a88592ae06f835a92.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201303/07205204-502ed9929e8d46fa968a9a84779072ae.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;335&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:a9cdaa25-1e73-44bc-89e3-39f53293f702&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201303/07205204-502ed9929e8d46fa968a9a84779072ae.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;335&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;然后在控制台中运行：setup.py py2exe ，一切顺利的话会在当前目录下生成build和dist目录。&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:a3e40408-2fcb-4c6e-b342-76692b93503d&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;http://images.cnitblog.com/blog/141415/201303/07205209-212a7f51e0124f18aea30be1ad756f9f.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201303/07205217-f709e26a802b44669b7be446d615cd7c.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;442&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:a3e40408-2fcb-4c6e-b342-76692b93503d&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201303/07205217-f709e26a802b44669b7be446d615cd7c.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;442&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;控制台目录切换到dist目录，找到synctime.exe，在命令行中运行：&lt;/p&gt;
 &lt;p&gt;synctime.exe &amp;ndash;install (-remove)&amp;nbsp; 安装或移除时间同步服务。&lt;/p&gt;
 &lt;p&gt;现在可以运行services.msc查看服务运行情况&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:d9901461-8168-4ae1-abc7-4c0a7590a322&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;http://images.cnitblog.com/blog/141415/201303/07205219-731ccb75e70147de926a1c1c229a2797.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201303/07205221-f2f301d704c148eaa6d1b76d8d23a853.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;138&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:d9901461-8168-4ae1-abc7-4c0a7590a322&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201303/07205221-f2f301d704c148eaa6d1b76d8d23a853.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;138&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;可以看到服务并没有启动，而且启动方式为手动。在这里可以右击服务选择属性手动把服务启动起来，并且设置为服务自动启动。&lt;/p&gt;
 &lt;p&gt;好吧，我承认。这样操作跟上面的需求有点出入了，略显麻烦。为了解决这个问题，自然想到的是用批处理来做。在dist目录下分别建两个批处理文件:&lt;/p&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;2b239dc7-94c9-4437-803a-53a89b72d880&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_2b239dc7-94c9-4437-803a-53a89b72d880&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_2b239dc7-94c9-4437-803a-53a89b72d880&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;2b239dc7-94c9-4437-803a-53a89b72d880&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;installservice.bat&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('2b239dc7-94c9-4437-803a-53a89b72d880')&quot;&gt;&lt;img id=&quot;code_img_closed_2b239dc7-94c9-4437-803a-53a89b72d880&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_2b239dc7-94c9-4437-803a-53a89b72d880&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('2b239dc7-94c9-4437-803a-53a89b72d880',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;installservice.bat&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_2b239dc7-94c9-4437-803a-53a89b72d880&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;@echo&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;off&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; 
@@ -739,7 +781,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;span style=&quot;color: #008080;&quot;&gt;15&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;pause&lt;/span&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;99282b9b-5391-44db-ba88-8808a7c6d0bf&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_99282b9b-5391-44db-ba88-8808a7c6d0bf&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_99282b9b-5391-44db-ba88-8808a7c6d0bf&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;99282b9b-5391-44db-ba88-8808a7c6d0bf&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;removeserivce.bat&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('99282b9b-5391-44db-ba88-8808a7c6d0bf')&quot;&gt;&lt;img id=&quot;code_img_closed_99282b9b-5391-44db-ba88-8808a7c6d0bf&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_99282b9b-5391-44db-ba88-8808a7c6d0bf&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('99282b9b-5391-44db-ba88-8808a7c6d0bf',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;removeserivce.bat&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_99282b9b-5391-44db-ba88-8808a7c6d0bf&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;@echo&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;off&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; 
@@ -757,10 +799,10 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;好了，现在可以把dist打个包发给老妈用了。但是，这样发个一个压缩包，看起来也太不专业了。解决的办法是打一个安装包，把bat脚本打到安装包里，在安装程序时由安装包调用。这里我用的是NISI（使用HM VNISEdit打包向导来生成打包脚本非常方便）。&lt;/p&gt;
 &lt;h2 class=&quot;custom-h2&quot;&gt;三、最终安装效果图&lt;/h2&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:966edc73-4b88-4217-92e4-e2fd8c5746b8&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;a title=&quot;1&quot; href=&quot;http://images.cnitblog.com/blog/141415/201303/07205222-6c7cc32fb88943bbba3da3f1b8838c8d.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201303/07205224-0606e0dc52ac49fa9eabc1958dea6685.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;350&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:276da779-a486-4e55-b2d2-d1b4c2826b14&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;a title=&quot;2&quot; href=&quot;http://images.cnitblog.com/blog/141415/201303/07205225-f8bef7c1346f4478ac6eb3bb520f7010.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201303/07205227-0ac57f1683ce471fbd00e73f597223ec.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;350&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:07c51362-85cd-4b5e-8314-bda978c4cd4c&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;a title=&quot;3&quot; href=&quot;http://images.cnitblog.com/blog/141415/201303/07205231-2cf6c57e8d234bb9a5b60128d75018ab.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201303/07205234-d9d354cfd52f4a42807ba415de74c23d.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;257&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:8bc0314e-19ff-4214-b31b-b2cc1b04b1d2&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;a title=&quot;4&quot; href=&quot;http://images.cnitblog.com/blog/141415/201303/07205235-7bbfc5bd481748948e215d5a0bc263f6.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/141415/201303/07205236-2f1ead5d83ea43eb9fb29aa4720a527f.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;350&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:966edc73-4b88-4217-92e4-e2fd8c5746b8&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201303/07205224-0606e0dc52ac49fa9eabc1958dea6685.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;350&quot; /&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:276da779-a486-4e55-b2d2-d1b4c2826b14&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201303/07205227-0ac57f1683ce471fbd00e73f597223ec.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;350&quot; /&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:07c51362-85cd-4b5e-8314-bda978c4cd4c&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201303/07205234-d9d354cfd52f4a42807ba415de74c23d.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;257&quot; /&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:8bc0314e-19ff-4214-b31b-b2cc1b04b1d2&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201303/07205236-2f1ead5d83ea43eb9fb29aa4720a527f.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;350&quot; /&gt;&lt;/div&gt;
 &lt;h2 class=&quot;custom-h2&quot;&gt;四、结尾&lt;/h2&gt;
 &lt;p&gt;遗留的问题:&lt;/p&gt;
 &lt;p&gt;1、从上面的截图可以看到，安装程序在调用批处理时会显示出控制台窗口。这个问题我在网上查找资料，NSIS有相关的插件可以隐藏控制台窗口调用bat文件。&lt;/p&gt;
@@ -779,32 +821,25 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
         
             <item>
                     <title>完美实现Silverlight动态加载</title>
-                    <description>&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;这段时间利用项目空隙，研究了一下Silverlight的动态加载技术。动态加载分为两种:&lt;/span&gt;&lt;/p&gt;
+                    <description>&lt;style type=&quot;text/css&quot;&gt;  pre { padding:0px !important; -webkit-box-shadow: none; box-shadow:none; } .csharpcode {margin: 10px 0px;} &lt;/style&gt;
+
+&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;这段时间利用项目空隙，研究了一下Silverlight的动态加载技术。动态加载分为两种:&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;1、网页局部加载(即一个网页上有多个Silverlight应用)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;2、单个Silverlight应用动态加载(即模块分步加载)。&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;这里讨论的是第二种加载方式，对于这种加载模式的处理， 目前网上比较常见的方法也有两种:一种是动态加载xap包，另一种是动态加载dll, 两种方法的实现原理都是一样的（个人比较推荐前一种,因为xap是压缩包可节省带宽，而且如果需要加载多个dll时，后一种方案处理起来较为麻烦）。但是有一些细节处理让人不是很满意，比如&lt;/span&gt;&lt;a href=&quot;http://www.cnblogs.com/wuli00/archive/2009/10/28/1591325.html&quot;&gt;&lt;span style=&quot;font-weight: normal; font-family: 微软雅黑; font-size: medium;&quot;&gt;silverlight动态加载(研究与探讨)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt; 这篇文章，虽然实现了动态加载，但是没有很好的解决dll重复引用的问题。本文将在前人研究的基础上，做些总结和改进，提供一个较为完美的解决方案。&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;padding-bottom: 5px; margin-top: 20px; padding-left: 15px; padding-right: 5px; font-family: 微软雅黑; margin-bottom: 20px; background: #4dc962; color: #ffffff; padding-top: 5px; border: #cdc9f2 2px solid;&quot;&gt;&lt;span style=&quot;font-size: x-large;&quot;&gt;&lt;strong&gt;一、认识XAP包&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;使用VS新建一个名为MainApp的Silverlight应用程序，使用默认设置生成一个对应的MainApp.Web工程。完成编译，这时会在对应的Web工程的&lt;strong&gt;ClienBin&lt;/strong&gt;目录下生成MainApp.xap文件(实际上是一个zip包)&lt;/span&gt;&lt;/p&gt;
 &lt;div style=&quot;width: 100%;&quot;&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:fb71ee04-1b65-40c2-999a-719eb152f60e&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: left; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542262155.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/20121101154226171.png&quot; alt=&quot;&quot; width=&quot;250&quot; height=&quot;211&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:cb9920a3-ffe1-43cc-b9e6-502fe44a077d&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: left; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542272613.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542277040.png&quot; alt=&quot;&quot; width=&quot;520&quot; height=&quot;162&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:fb71ee04-1b65-40c2-999a-719eb152f60e&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/20121101154226171.png&quot; alt=&quot;&quot; width=&quot;250&quot; height=&quot;211&quot; /&gt;&lt;/div&gt;
+
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:cb9920a3-ffe1-43cc-b9e6-502fe44a077d&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px;  padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542277040.png&quot; alt=&quot;&quot; width=&quot;520&quot; height=&quot;162&quot; /&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;使用工具打开xap:&lt;/span&gt;&lt;/p&gt;
 &lt;div style=&quot;width: 100%;&quot;&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:4fd77eb2-eaf5-49fc-affc-3d539c236d78&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: left; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542285305.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542289383.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;206&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:4fd77eb2-eaf5-49fc-affc-3d539c236d78&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px;  padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542289383.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;206&quot; /&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;可以看到xap包中有一个&lt;strong&gt;AppMainfest.xaml&lt;/strong&gt;文件和一个dll文件，我们着重介绍一下&lt;strong&gt;AppMainfest.xaml&lt;/strong&gt;文件。使用文本编辑工具打开这个文件:&lt;/span&gt;&lt;/p&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
 &lt;pre class=&quot;alt&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;html&quot;&gt;Deployment&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;xmlns&lt;/span&gt;&lt;span class=&quot;kwrd&quot;&gt;=&quot;http://schemas.microsoft.com/client/2007/deployment&quot;&lt;/span&gt; &lt;/pre&gt;
@@ -844,17 +879,10 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;strong&gt;Deployment&lt;/strong&gt;结点中描述了应用程序入口程序集名称，入口类型，运行时版本。&lt;span class=&quot;html&quot;&gt;&lt;strong&gt;Deployment.Parts&lt;/strong&gt;下描述了各个引用的程序集名称及dll所在位置。我们新建一个Model工程，并在MainApp中引用，再次编译，这次生成的XAP包中又多了Model的引用。&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;div style=&quot;width: 100%;&quot;&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:ddd7ef85-39ca-4534-83f9-68758e463c8b&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: left; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542289906.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542296285.png&quot; alt=&quot;&quot; width=&quot;225&quot; height=&quot;300&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:708954cc-ec63-40a0-99f6-9d5d4383941e&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: left; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542308138.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/20121101154230580.png&quot; alt=&quot;&quot; width=&quot;560&quot; height=&quot;196&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:ddd7ef85-39ca-4534-83f9-68758e463c8b&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px;  padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542296285.png&quot; alt=&quot;&quot; width=&quot;225&quot; height=&quot;300&quot; /&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:708954cc-ec63-40a0-99f6-9d5d4383941e&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; padding: 0px;&quot;&gt; &lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/20121101154230580.png&quot; alt=&quot;&quot; width=&quot;560&quot; height=&quot;196&quot; /&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span class=&quot;html&quot;&gt;再次打开&lt;strong&gt;AppMainfest.xaml&lt;/strong&gt;&lt;/span&gt; ：&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
 &lt;pre class=&quot;alt&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;html&quot;&gt;Deployment&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;xmlns&lt;/span&gt;&lt;span class=&quot;kwrd&quot;&gt;=&quot;http://schemas.microsoft.com/client/2007/deployment&quot;&lt;/span&gt; &lt;/pre&gt;
@@ -896,11 +924,11 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;对应的AssemblyPart也对应的增加了，不难想象如果在MainApp中引用了很多dll，那么最终生成的xap包的体积也会变的很大，造成用户访问程序时加载速度很慢。因为即使有些dll在一开始并没有用到，也会在首次加载中一同下载到客户端。对于这种情况，有一种简单的处理方法&amp;mdash;&amp;mdash;&lt;strong&gt; 应用程序库缓存&lt;/strong&gt;。&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;padding-bottom: 5px; margin-top: 20px; padding-left: 15px; padding-right: 5px; font-family: 微软雅黑; margin-bottom: 20px; background: #4dc962; color: #ffffff; padding-top: 5px; border: #cdc9f2 2px solid;&quot;&gt;&lt;span style=&quot;font-size: x-large;&quot;&gt;&lt;strong&gt;二、应用程序库缓存(Application Libary Caching)&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;我们在MainApp工程中随便添加几个引用，模拟真实开发环境。重新编译后，新生成的xap包增加了800多KB。&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:e0db4eca-c6a7-4544-97c4-4b100f9b4802&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542325399.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542336412.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;281&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:e0db4eca-c6a7-4544-97c4-4b100f9b4802&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542336412.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;281&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;此时，打开MainApp工程属性页面，勾选&lt;strong&gt;&quot;Reduce XAP size by using application libary caching&quot;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:102ffe73-47d1-4216-948b-ba492b123064&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542336379.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542348822.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;423&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:102ffe73-47d1-4216-948b-ba492b123064&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542348822.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;423&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;再次编译，ClientBin目录下生成了几个zip文件，同时这次生成的xap包了体积又降回了原来的9KB&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:e87dfc6a-2e32-4dc1-982c-81834f5d3eec&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542346771.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/20121101154235575.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;426&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:e87dfc6a-2e32-4dc1-982c-81834f5d3eec&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/20121101154235575.png&quot; alt=&quot;&quot; width=&quot;580&quot; height=&quot;426&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;仔细观察的话，会发现原来xap包中引用的外部dll和新生成的zip文件一一对应。而此时的&lt;span class=&quot;html&quot;&gt;&lt;strong&gt;AppMainfest.xaml&lt;/strong&gt;&lt;/span&gt; 也发生了变化：&lt;/span&gt;&lt;/p&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
 &lt;pre class=&quot;alt&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;html&quot;&gt;Deployment&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;xmlns&lt;/span&gt;&lt;span class=&quot;kwrd&quot;&gt;=&quot;http://schemas.microsoft.com/client/2007/deployment&quot;&lt;/span&gt; &lt;/pre&gt;
@@ -951,12 +979,13 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;多出了&lt;strong&gt;Deployment.ExternalParts&lt;/strong&gt;结点。通过这种方式，用户访问Silverlight应用时，xap下载的速度会得到改善，当程序中用到某一个外部程序集时，则会自动下载对应的Zip包到客户端，并加载其中的程序集。这样只要合理组织程序集之间的引用就可以达到提高加载速度的目的。非常方便简单。&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;padding-bottom: 5px; margin-top: 20px; padding-left: 15px; padding-right: 5px; font-family: 微软雅黑; margin-bottom: 20px; background: #4dc962; color: #ffffff; padding-top: 5px; border: #cdc9f2 2px solid;&quot;&gt;&lt;span style=&quot;font-size: x-large;&quot;&gt;&lt;strong&gt;三、动态加载XAP&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;有了对Xap包结构和&lt;span class=&quot;html&quot;&gt;&lt;strong&gt;AppMainfest.xaml&lt;/strong&gt;&lt;/span&gt; 结构的初步认识之后，要实现Xap包的动态加载就比较容易了。新建一个Silverlight应用程序EmployeeDataGrid，添加一些逻辑代码和引用。之后再将工程添加到MainApp.Web工程的Silverlight Application中。&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:302ea8c5-c051-404e-98b1-8cc87b876f0c&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542368524.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542379854.png&quot; alt=&quot;&quot; width=&quot;660&quot; height=&quot;357&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:302ea8c5-c051-404e-98b1-8cc87b876f0c&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; float: none; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542379854.png&quot; alt=&quot;&quot; width=&quot;660&quot; height=&quot;357&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;编译之后在ClinetBin目录下会生成EmployeeDataGrid.xap文件。运行MainApp.Web工程，看到下面的页面。&lt;/span&gt;&lt;/p&gt;
 &lt;div style=&quot;width: 100%;&quot;&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:4ce699b8-3651-49bc-b3cd-930806491e46&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: left; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542383376.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/20121101154239703.png&quot; alt=&quot;&quot; width=&quot;335&quot; height=&quot;320&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:fdb8389d-beb9-438c-ac90-7826b18810f7&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: inline; float: none; padding: 0px;&quot;&gt;&lt;a title=&quot;&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542404225.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542411127.png&quot; alt=&quot;&quot; width=&quot;335&quot; height=&quot;317&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:4ce699b8-3651-49bc-b3cd-930806491e46&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px;   padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/20121101154239703.png&quot; alt=&quot;&quot; width=&quot;335&quot; height=&quot;320&quot; /&gt;&lt;/div&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:fdb8389d-beb9-438c-ac90-7826b18810f7&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px;  float: none; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201211/201211011542411127.png&quot; alt=&quot;&quot; width=&quot;335&quot; height=&quot;317&quot; /&gt;&lt;/div&gt;
 &lt;/div&gt;
+
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;首页打开加载MainApp页面，点击页面上的&amp;ldquo;加载员工列表&amp;rdquo;按钮，动态加载EmployeeDataGrid.xap并初始化员工列表，代码如下：&lt;/span&gt;&lt;/p&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
 &lt;pre class=&quot;alt&quot;&gt; &lt;span class=&quot;rem&quot;&gt;/// &amp;lt;summary&amp;gt;&lt;/span&gt;&lt;/pre&gt;
@@ -1313,8 +1342,10 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
         
             <item>
                     <title>可框选的ListBox</title>
-                    <description>&lt;p&gt;30px;&quot;&amp;gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;最近项目当中遇到一个需要有数据条目框选功能的ListBox，写了一个简单的Demo。效果如下：&lt;/span&gt;&amp;lt;/p&amp;gt;&lt;/p&gt;
-&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:24421259-7eb1-42d9-8a5c-c7de0746ffa6&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: block; padding: 0px;&quot;&gt;&lt;a title=&quot;DragSelectListBox&quot; href=&quot;/assets/images/posts/cnblogs_com/talywy/201210/201210092306044624.png&quot; rel=&quot;thumbnail&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201210/201210092306053064.png&quot; alt=&quot;&quot; width=&quot;420&quot; height=&quot;331&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+                    <description>&lt;style type=&quot;text/css&quot;&gt; pre { background-color: #eee;  color: black; }&lt;/style&gt;
+
+&lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;最近项目当中遇到一个需要有数据条目框选功能的ListBox，写了一个简单的Demo。效果如下：&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;scid:8747F07C-CDE8-481f-B0DF-C6CFD074BF67:24421259-7eb1-42d9-8a5c-c7de0746ffa6&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;margin: 0px; display: block; padding: 0px;&quot;&gt;&lt;img src=&quot;/assets/images/posts/cnblogs_com/talywy/201210/201210092306053064.png&quot; alt=&quot;&quot; width=&quot;420px&quot; height=&quot;331px&quot; /&gt;&lt;/div&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;要想实现这样的效果主要要实现以下两点：&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;strong&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;1、选择框的绘制&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;strong&gt;&lt;span style=&quot;font-size: medium;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;2、绘制过程中计算与选择框相交的Item。&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
@@ -1404,7 +1435,9 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
         
             <item>
                     <title>WPF中实现自定义虚拟容器(实现VirtualizingPanel)</title>
-                    <description>&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;在WPF应用程序开发过程中，大数据量的数据展现通常都要考虑性能问题。有下面一种常见的情况:原始数据源数据量很大，但是某一时刻数据容器中的可见元素个数是有限的，剩余大多数元素都处于不可见状态，如果一次性将所有的数据元素都渲染出来则会非常的消耗性能。因而可以考虑只渲染当前可视区域内的元素，当可视区域内的元素需要发生改变时，再渲染即将展现的元素，最后将不再需要展现的元素清除掉，这样可以大大提高性能。在WPF中System.Windows.Controls命名空间下的&lt;/span&gt;&lt;a href=&quot;http://msdn.microsoft.com/zh-cn/library/system.windows.controls.virtualizingstackpanel.aspx&quot; target=&quot;_blank&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;VirtualizingStackPanel&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;可以实现数据展现的虚拟化功能，ListBox的默认元素展现容器就是它。但有时&lt;/span&gt;&lt;a href=&quot;http://msdn.microsoft.com/zh-cn/library/system.windows.controls.virtualizingstackpanel.aspx&quot; target=&quot;_blank&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;VirtualizingStackPanel&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;的布局并不能满足我们的实际需要，此时就需要实现自定义布局的虚拟容器了。本文将简单介绍容器自定义布局，然后介绍实现虚拟容器的基本原理，最后给出一个虚拟化分页容器的演示程序。 &lt;/span&gt;&lt;/p&gt;
+                    <description>&lt;style type=&quot;text/css&quot;&gt; pre { background-color: #eee;  color: black; }&lt;/style&gt;
+
+&lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;在WPF应用程序开发过程中，大数据量的数据展现通常都要考虑性能问题。有下面一种常见的情况:原始数据源数据量很大，但是某一时刻数据容器中的可见元素个数是有限的，剩余大多数元素都处于不可见状态，如果一次性将所有的数据元素都渲染出来则会非常的消耗性能。因而可以考虑只渲染当前可视区域内的元素，当可视区域内的元素需要发生改变时，再渲染即将展现的元素，最后将不再需要展现的元素清除掉，这样可以大大提高性能。在WPF中System.Windows.Controls命名空间下的&lt;/span&gt;&lt;a href=&quot;http://msdn.microsoft.com/zh-cn/library/system.windows.controls.virtualizingstackpanel.aspx&quot; target=&quot;_blank&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;VirtualizingStackPanel&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;可以实现数据展现的虚拟化功能，ListBox的默认元素展现容器就是它。但有时&lt;/span&gt;&lt;a href=&quot;http://msdn.microsoft.com/zh-cn/library/system.windows.controls.virtualizingstackpanel.aspx&quot; target=&quot;_blank&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;VirtualizingStackPanel&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;的布局并不能满足我们的实际需要，此时就需要实现自定义布局的虚拟容器了。本文将简单介绍容器自定义布局，然后介绍实现虚拟容器的基本原理，最后给出一个虚拟化分页容器的演示程序。 &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
 &lt;h2 style=&quot;background: #4dc962; border: #cdc9f2 2px solid; padding: 5px;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;span style=&quot;color: #ffffff;&quot;&gt;一、WPF中自定义布局 （已了解容器自定义布局的朋友可略过此节）&lt;/span&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;通常实现一个自定义布局的容器，需要继承System.Windows.Controls.Panel, 并重写下面两个方法: &lt;/span&gt;&lt;/p&gt;
@@ -1414,7 +1447,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;下面用一个简单的SplitPanel来加以说明这两个方法的作用。下面的Window中放置了一个SplitPanel，每点击一次&amp;ldquo;添加&amp;rdquo;按钮，都会向SplitPanel中添加一个填充了随机色的Rectangle， 而SplitPanel中的Rectangle无论有几个，都会在垂直方向上布满容器，水平方向上平均分配宽度。&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222304717.png&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;2012090619124827&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222348191.png&quot; alt=&quot;2012090619124827&quot; width=&quot;428&quot; height=&quot;322&quot; border=&quot;0&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑;&quot;&gt;实现代码如下:&lt;/span&gt;&lt;/p&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;860f43bc-6b22-42d2-b79a-bcc928f66cd3&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_860f43bc-6b22-42d2-b79a-bcc928f66cd3&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_860f43bc-6b22-42d2-b79a-bcc928f66cd3&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;860f43bc-6b22-42d2-b79a-bcc928f66cd3&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;SplitPanel &lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('860f43bc-6b22-42d2-b79a-bcc928f66cd3')&quot;&gt;&lt;img id=&quot;code_img_closed_860f43bc-6b22-42d2-b79a-bcc928f66cd3&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_860f43bc-6b22-42d2-b79a-bcc928f66cd3&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('860f43bc-6b22-42d2-b79a-bcc928f66cd3',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;SplitPanel &lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_860f43bc-6b22-42d2-b79a-bcc928f66cd3&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;&amp;lt;summary&amp;gt;&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; 简单的自定义容器
@@ -1469,7 +1502,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
     &lt;br clear=&quot;all&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;接下来我们引入另一个重要概念:&lt;a href=&quot;http://msdn.microsoft.com/zh-cn/library/system.windows.controls.primitives.generatorposition.aspx&quot; target=&quot;_blank&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&lt;strong&gt;GeneratorPosition&lt;/strong&gt;&lt;/span&gt;&lt;/a&gt;,这个结构体用来描述ItemsControl的Items属性中实例化和虚拟化数据项的位置关系，在VirtualizingPanel中可以通过&lt;a href=&quot;http://msdn.microsoft.com/en-us/library/system.windows.controls.primitives.iitemcontainergenerator.aspx&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;ItemContainerGenerator&lt;/strong&gt;&lt;/a&gt;（注意:在VirtualizingPanel第一次访问这个属性之前要先访问一下InternalChildren属性，否则&lt;a href=&quot;http://msdn.microsoft.com/en-us/library/system.windows.controls.primitives.iitemcontainergenerator.aspx&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;ItemContainerGenerator&lt;/strong&gt;&lt;/a&gt;会是null，貌似是一个Bug）属性来获取数据项的位置信息，此外通过这个属性还可以进行数据项的实例化和虚拟化。&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;获取数据项GeneratorPosition信息：&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;1017abaa-72fc-4e3d-8571-4d6eb259ca04&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_1017abaa-72fc-4e3d-8571-4d6eb259ca04&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_1017abaa-72fc-4e3d-8571-4d6eb259ca04&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;1017abaa-72fc-4e3d-8571-4d6eb259ca04&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;DumpGeneratorContent&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('1017abaa-72fc-4e3d-8571-4d6eb259ca04')&quot;&gt;&lt;img id=&quot;code_img_opened_1017abaa-72fc-4e3d-8571-4d6eb259ca04&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('1017abaa-72fc-4e3d-8571-4d6eb259ca04',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;DumpGeneratorContent&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_1017abaa-72fc-4e3d-8571-4d6eb259ca04&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;&amp;lt;summary&amp;gt;&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; 显示数据GeneratorPosition信息
@@ -1492,9 +1525,8 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;p&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;第7行通过ItemsControl的静态方法GetItemsOwner可以找到容器所在的ItemsControl，这样就可以访问到数据项集合，第12行代码调用generator 的GeneratorPositionFromIndex方法，通过数据项的索引得到数据项的GeneratorPosition 信息。&lt;/span&gt;&lt;/p&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
-&lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
 &lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&lt;strong&gt;数据项实例化：&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;aff6063c-28f1-45ae-88fe-f72dffd8b0ae&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_aff6063c-28f1-45ae-88fe-f72dffd8b0ae&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_aff6063c-28f1-45ae-88fe-f72dffd8b0ae&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;aff6063c-28f1-45ae-88fe-f72dffd8b0ae&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;RealizeChild&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('aff6063c-28f1-45ae-88fe-f72dffd8b0ae')&quot;&gt;&lt;img id=&quot;code_img_closed_aff6063c-28f1-45ae-88fe-f72dffd8b0ae&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_aff6063c-28f1-45ae-88fe-f72dffd8b0ae&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('aff6063c-28f1-45ae-88fe-f72dffd8b0ae',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;RealizeChild&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_aff6063c-28f1-45ae-88fe-f72dffd8b0ae&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;&amp;lt;summary&amp;gt;&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; 实例化子元素
@@ -1522,9 +1554,8 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/div&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
-&lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
 &lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;&lt;strong&gt;数据项虚拟化：&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;9276a821-4675-47bd-a94f-ca5ad0e1d540&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_9276a821-4675-47bd-a94f-ca5ad0e1d540&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_9276a821-4675-47bd-a94f-ca5ad0e1d540&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;9276a821-4675-47bd-a94f-ca5ad0e1d540&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;VirtualizeChild&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('9276a821-4675-47bd-a94f-ca5ad0e1d540')&quot;&gt;&lt;img id=&quot;code_img_closed_9276a821-4675-47bd-a94f-ca5ad0e1d540&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_9276a821-4675-47bd-a94f-ca5ad0e1d540&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('9276a821-4675-47bd-a94f-ca5ad0e1d540',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;VirtualizeChild&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_9276a821-4675-47bd-a94f-ca5ad0e1d540&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;&amp;lt;summary&amp;gt;&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; 虚拟化子元素
@@ -1545,20 +1576,20 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/div&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
 &lt;div class=&quot;csharpcode&quot;&gt;
-&lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
+
 &lt;div align=&quot;left&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;通过几张图片来有一个直观的认识，数据条目一共有10个，初始化时全部都为虚拟化状态：&lt;/span&gt;
-&lt;pre&gt;&lt;a href=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222386956.png&quot;&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;1&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222448804.png&quot; alt=&quot;1&quot; width=&quot;441&quot; height=&quot;279&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/pre&gt;
-&lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
+&lt;pre&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;1&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222448804.png&quot; alt=&quot;1&quot; width=&quot;441&quot; height=&quot;279&quot; /&gt;&lt;/pre&gt;
+
 &lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;实例化第二个元素:&lt;/span&gt;
-&lt;pre&gt;&lt;a href=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222471854.png&quot;&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;2&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222537323.png&quot; alt=&quot;2&quot; width=&quot;445&quot; height=&quot;281&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/pre&gt;
-&lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
+&lt;pre&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;2&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222537323.png&quot; alt=&quot;2&quot; width=&quot;445&quot; height=&quot;281&quot; /&gt;&lt;/pre&gt;
+
 &lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;增加实例化第三、七个元素：&lt;/span&gt;
-&lt;pre&gt;&lt;a href=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072222561943.png&quot;&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;3&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072223045.png&quot; alt=&quot;3&quot; width=&quot;449&quot; height=&quot;284&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/pre&gt;
-&lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
+&lt;pre&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;3&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072223045.png&quot; alt=&quot;3&quot; width=&quot;449&quot; height=&quot;284&quot; /&gt;&lt;/pre&gt;
+
 &lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;虚拟化第二个元素：&lt;/span&gt;
-&lt;pre&gt;&lt;a href=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072223087100.png&quot;&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;4&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072223161848.png&quot; alt=&quot;4&quot; width=&quot;454&quot; height=&quot;287&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;4&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072223161848.png&quot; alt=&quot;4&quot; width=&quot;454&quot; height=&quot;287&quot; /&gt;&lt;/pre&gt;
 &lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;通过观察可以发现，&lt;span style=&quot;color: #000000;&quot;&gt;&lt;strong&gt;实例化的数据项位置信息按顺序从0开始依次增加，所有实例化的数据项位置信息的offset属性都是0，虚拟化数据项index和前一个最近的实例化元素index保持一致，offset依次增加&lt;/strong&gt;。&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
+
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1566,10 +1597,10 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;h2 style=&quot;background: #4dc962; border: #cdc9f2 2px solid; padding: 5px;&quot;&gt;&lt;span style=&quot;color: #ffffff; font-family: 微软雅黑;&quot;&gt;三、实战-实现一个虚拟化分页容器&lt;/span&gt;&lt;/h2&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;span style=&quot;font-family: 微软雅黑; font-size: medium;&quot;&gt;了解了子元素自定义布局、数据项GeneratorPosition信息、虚拟化、实例化相关概念和实现方法后，离实现一个自定义虚拟容器还剩一步重要的工作：计算当前应该显示的数据项起止索引，实例化这些数据项，虚拟化不再显示的数据项。&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;再前进一步，实现一个虚拟化分页容器：&lt;/p&gt;
-&lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;a href=&quot;/assets/images/posts/cnblogs_com/talywy/201209/20120907222317877.png&quot;&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;5&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072223268283.png&quot; alt=&quot;5&quot; width=&quot;244&quot; height=&quot;230&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;text-indent: 30px;&quot;&gt;&lt;img style=&quot;background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;&quot; title=&quot;5&quot; src=&quot;/assets/images/posts/cnblogs_com/talywy/201209/201209072223268283.png&quot; alt=&quot;5&quot; width=&quot;244&quot; height=&quot;230&quot; /&gt;&lt;/p&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;这个虚拟化分页容器有ChildWidth和ChildHeight两个依赖属性，用来定义容器中子元素的宽和高，这样在容器布局尺寸确定的情况下可以计算出可用布局下一共能显示多少个子元素，也就是PageSize属性。为容器指定一个有5000个数据的数据源，再提供一个分页控件用来控制分页容器的PageIndex，用来达到分页显示的效果。&lt;/p&gt;
 &lt;p style=&quot;text-indent: 30px;&quot;&gt;贴出主要代码：&lt;/p&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;bd39b889-d821-44d1-9f6a-e44a59b5acb1&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_bd39b889-d821-44d1-9f6a-e44a59b5acb1&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_bd39b889-d821-44d1-9f6a-e44a59b5acb1&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;bd39b889-d821-44d1-9f6a-e44a59b5acb1&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;计算需要实例化数据项的起止索引&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('bd39b889-d821-44d1-9f6a-e44a59b5acb1')&quot;&gt;&lt;img id=&quot;code_img_closed_bd39b889-d821-44d1-9f6a-e44a59b5acb1&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_bd39b889-d821-44d1-9f6a-e44a59b5acb1&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('bd39b889-d821-44d1-9f6a-e44a59b5acb1',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;计算需要实例化数据项的起止索引&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_bd39b889-d821-44d1-9f6a-e44a59b5acb1&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;&amp;lt;summary&amp;gt;&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; 计算可是元素起止索引
@@ -1606,7 +1637,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;33&lt;/span&gt; }&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;a3755f35-debc-4db5-9999-1bca8d193256&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_a3755f35-debc-4db5-9999-1bca8d193256&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_a3755f35-debc-4db5-9999-1bca8d193256&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;a3755f35-debc-4db5-9999-1bca8d193256&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;测量子元素布局期望尺寸及数据项实例化&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('a3755f35-debc-4db5-9999-1bca8d193256')&quot;&gt;&lt;img id=&quot;code_img_closed_a3755f35-debc-4db5-9999-1bca8d193256&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_a3755f35-debc-4db5-9999-1bca8d193256&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('a3755f35-debc-4db5-9999-1bca8d193256',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;测量子元素布局期望尺寸及数据项实例化&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_a3755f35-debc-4db5-9999-1bca8d193256&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;&amp;lt;summary&amp;gt;&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; 测量子元素布局,生成需要显示的子元素
@@ -1660,7 +1691,7 @@ discovery.zen.ping.unicast.hosts: [&quot;es-server01:9300&quot;, &quot;es-server
 &lt;/span&gt;&lt;span style=&quot;color: #008080;&quot;&gt;50&lt;/span&gt; }&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show(&#39;25d338df-4f94-467c-af16-200c0da23377&#39;)&quot;&gt;&lt;img id=&quot;code_img_closed_25d338df-4f94-467c-af16-200c0da23377&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_25d338df-4f94-467c-af16-200c0da23377&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide(&#39;25d338df-4f94-467c-af16-200c0da23377&#39;,event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;清理不再显示的子元素&lt;/span&gt;
+&lt;div class=&quot;cnblogs_code&quot; onclick=&quot;cnblogs_code_show('25d338df-4f94-467c-af16-200c0da23377')&quot;&gt;&lt;img id=&quot;code_img_closed_25d338df-4f94-467c-af16-200c0da23377&quot; class=&quot;code_img_closed&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif&quot; alt=&quot;&quot; /&gt;&lt;img id=&quot;code_img_opened_25d338df-4f94-467c-af16-200c0da23377&quot; class=&quot;code_img_opened&quot; style=&quot;display: none;&quot; onclick=&quot;cnblogs_code_hide('25d338df-4f94-467c-af16-200c0da23377',event)&quot; src=&quot;http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif&quot; alt=&quot;&quot; /&gt;&lt;span class=&quot;cnblogs_code_collapse&quot;&gt;清理不再显示的子元素&lt;/span&gt;
 &lt;div id=&quot;cnblogs_code_open_25d338df-4f94-467c-af16-200c0da23377&quot; class=&quot;cnblogs_code_hide&quot;&gt;
 &lt;pre&gt;&lt;span style=&quot;color: #008080;&quot;&gt; 1&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;&amp;lt;summary&amp;gt;&lt;/span&gt;
 &lt;span style=&quot;color: #008080;&quot;&gt; 2&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;///&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt; 清理不需要显示的子元素
